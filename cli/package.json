@@ -1,0 +1,14 @@
+{
+  "name": "fetchbook-cli",
+  "type": "module",
+  "dependencies": {
+    "json-colorizer": "^2.2.2",
+    "fetchbook": ".."
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "fetchbook",
+  "version": "0.0.14",
+  "description": "Manage your HTTP requests",
+  "author": "Alejandro Tardín <alejandro@tardin.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bun": "^1.0.3"
+  },
+  "bin": {
+    "fetchbook": "./bin/fetchbook.js"
+  },
+  "scripts": {
+    "test": "npx fetchbook test/story.ts"
+  }
+}
