@@ -1,5 +1,6 @@
 import colorizer from "json-colorizer";
 import { RequestStory } from "..";
+import path from 'path'
 
 export const requestStory = (story: RequestStory) => story;
 
@@ -7,10 +8,10 @@ const baseUrl = process.env.BASE_URL;
 const echoServer = baseUrl
   ? undefined
   : Bun.serve({
-      fetch(req) {
-        return new Response(req.body);
-      },
-    });
+    fetch(req) {
+      return new Response(req.body);
+    },
+  });
 
 const response = await (async function run(story: RequestStory) {
   for (const beforeStory of story.before ?? []) {
@@ -33,6 +34,6 @@ const response = await (async function run(story: RequestStory) {
     await run(afterStory);
   }
   return response;
-})(await import(Bun.argv[2]).then((mod) => mod.default as RequestStory));
+})(await import(path.resolve(Bun.argv[2])).then((mod) => mod.default as RequestStory));
 console.log(colorizer(JSON.stringify(await response.json()), { pretty: true }));
 echoServer?.stop();

@@ -4,7 +4,6 @@ const path = require("path");
 const cwd = path.join(__dirname, "..", "cli")
 
 spawnSync("bun", ["install"], { cwd });
-spawnSync("bun", ["run", "fetchbook-cli.ts", path.resolve(process.argv[2])], {
-  cwd,
+spawnSync("bun", ["run", path.join(cwd, "fetchbook-cli.ts"), ...process.argv.slice(2)], {
   stdio: "inherit",
 });

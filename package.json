@@ -1,6 +1,6 @@
 {
   "name": "fetchbook",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Manage your HTTP requests",
   "author": "Alejandro Tardín <alejandro@tardin.com>",
   "license": "MIT",
