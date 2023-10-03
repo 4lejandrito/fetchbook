@@ -7,10 +7,16 @@
   "dependencies": {
     "bun": "^1.0.3"
   },
+  "devDependencies": {
+    "json-server": "^0.17.4",
+    "start-server-and-test": "^2.0.1"
+  },
   "bin": {
     "fetchbook": "./bin/fetchbook.js"
   },
   "scripts": {
-    "test": "npx fetchbook test/story.ts"
+    "test": "start-test test:start 3000 test:run",
+    "test:run": "npx fetchbook test/story.ts",
+    "test:start": "json-server --quiet --host :: test/db.json"
   }
 }

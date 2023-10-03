@@ -2,8 +2,9 @@
   "name": "fetchbook-cli",
   "type": "module",
   "dependencies": {
-    "json-colorizer": "^2.2.2",
-    "fetchbook": ".."
+    "commander": "^11.0.0",
+    "fetchbook": "..",
+    "json-colorizer": "^2.2.2"
   },
   "devDependencies": {
     "bun-types": "latest"

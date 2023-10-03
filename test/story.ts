@@ -2,11 +2,8 @@ import { RequestStory } from "..";
 
 export default {
   name: "Test",
-  url: "test",
+  url: "http://localhost:3000/posts",
   request: {
-    method: "POST",
-    body: JSON.stringify({
-      it: "works!",
-    }),
+    method: "GET",
   },
 } satisfies RequestStory;
