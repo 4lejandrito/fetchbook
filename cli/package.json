@@ -4,7 +4,8 @@
   "dependencies": {
     "commander": "^11.0.0",
     "fetchbook": "..",
-    "json-colorizer": "^2.2.2"
+    "json-colorizer": "^2.2.2",
+    "picocolors": "^1.0.0"
   },
   "devDependencies": {
     "bun-types": "latest"
