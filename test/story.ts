@@ -14,13 +14,22 @@ export default {
   url: "http://localhost:3000/posts",
   request: {
     method: "GET",
+    headers: {
+      "Some-Header": "value",
+    },
   },
   after: [
     {
       name: "Test after",
       url: "http://localhost:3000/posts/2",
       request: {
-        method: "GET",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          key: "value",
+        }),
       },
     },
   ],

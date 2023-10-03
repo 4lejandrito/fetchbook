@@ -1,61 +1,65 @@
-import colorizer from "json-colorizer";
-import { RequestStory } from "..";
-import path from "path";
 import { program } from "commander";
 import picocolors from "picocolors";
+import fetchToCurl from "fetch-to-curl";
+import { getStory, serialize, visit } from "./lib/functions";
 
-const serializeObject = (json: object) =>
-  colorizer(JSON.stringify(json), { pretty: true });
-const serializeBlob = async (blob: Blob) =>
-  blob.type.includes("application/json") ? blob.json() : undefined;
+program.name("fetchbook");
 
 program
-  .name("fetchbook")
+  .command("run")
+  .description("run a story file")
   .argument("<story>", "story file path")
   .option("-v, --verbose", "verbose")
   .option("-d, --dry-run", "dry run")
-  .action(async (storyFilePath, options) => {
-    await (async function run(story: RequestStory) {
-      for (const beforeStory of story.before ?? []) {
-        await run(beforeStory);
-      }
-      const request = new Request(story.url, story.request);
+  .action(async (storyFilePath, options) =>
+    visit(await getStory(storyFilePath), async (request, story) => {
       let response: Response | undefined;
       if (!options.dryRun) {
-        response = await fetch(request);
+        response = await fetch(request.clone());
       }
       console.log(
         picocolors.green("✓"),
         story.name,
-        response?.status ?? picocolors.yellow("Dry run")
+        response?.status ?? picocolors.yellow("Dry run"),
       );
       if (options.verbose) {
         console.log(
-          serializeObject({
+          await serialize({
             request: {
               url: request.url,
               method: request.method,
               headers: request.headers.count > 0 ? request.headers : undefined,
-              body: await serializeBlob(await request.blob()),
+              body: await serialize(await request.blob()),
             },
             response: response
               ? {
                   status: response.status,
                   headers:
                     response.headers.count > 0 ? response.headers : undefined,
-                  body: await serializeBlob(await response.blob()),
+                  body: await serialize(await response.blob()),
                 }
               : undefined,
-          })
+          }),
         );
       }
-      for (const afterStory of story.after ?? []) {
-        await run(afterStory);
-      }
-    })(
-      await import(path.resolve(storyFilePath)).then(
-        (mod) => mod.default as RequestStory
-      )
-    );
-  })
-  .parse();
+    }),
+  );
+
+program
+  .command("curl")
+  .description("convert a story file to CURL")
+  .argument("<story>", "story file path")
+  .action(async (storyFilePath) =>
+    visit(await getStory(storyFilePath), async (request) =>
+      console.log(
+        fetchToCurl({
+          url: request.url,
+          method: request.method,
+          headers: request.headers,
+          body: await serialize(await request.blob()),
+        }),
+      ),
+    ),
+  );
+
+program.parse();

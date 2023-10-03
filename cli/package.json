@@ -3,6 +3,7 @@
   "type": "module",
   "dependencies": {
     "commander": "^11.0.0",
+    "fetch-to-curl": "^0.6.0",
     "fetchbook": "..",
     "json-colorizer": "^2.2.2",
     "picocolors": "^1.0.0"

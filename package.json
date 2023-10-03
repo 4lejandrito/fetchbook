@@ -16,7 +16,7 @@
   },
   "scripts": {
     "test": "start-test test:start 3000 test:run",
-    "test:run": "npx fetchbook test/story.ts -v",
+    "test:run": "npx fetchbook run test/story.ts -v",
     "test:start": "json-server --quiet --host :: test/db.json"
   }
 }
