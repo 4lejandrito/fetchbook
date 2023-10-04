@@ -14,11 +14,12 @@ export const findStory = async (storyFilePath?: string) => {
   if (storyFilePath) {
     return getStory(storyFilePath);
   } else {
-    const storyFiles = await glob("**/*.fetch.ts", {
+    const pattern = "**/*.fetch.ts";
+    const storyFiles = await glob(pattern, {
       ignore: ["node_modules/**"],
     });
     if (storyFiles.length === 0) {
-      console.log("No story files (*.fetch.ts) found");
+      console.log(`No story files (${pattern}) found`);
       process.exit(0);
     }
     const stories = await Promise.all(storyFiles.map(getStory));
