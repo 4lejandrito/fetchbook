@@ -15,7 +15,10 @@
   },
   "devDependencies": {
     "bun-types": "latest",
+    "husky": "^8.0.3",
     "json-server": "^0.17.4",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.0.3",
     "semantic-release": "^22.0.5",
     "start-server-and-test": "^2.0.1",
     "typescript": "^5.0.0"
@@ -27,7 +30,8 @@
     "test": "start-test test:start 3000 test:run",
     "test:run": "npx fetchbook test/test.fetch.ts -v",
     "test:start": "json-server --quiet --host :: test/db.json",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -41,5 +45,8 @@
         "prerelease": true
       }
     ]
+  },
+  "lint-staged": {
+    "*.{js,ts,json,md,yml}": "prettier --write"
   }
 }
