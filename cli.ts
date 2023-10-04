@@ -19,8 +19,8 @@ program
             method: request.method,
             headers: request.headers,
             body: await serialize(await request.blob()),
-          })
-        )
+          }),
+        ),
       );
     } else {
       run(story, options);

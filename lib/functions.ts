@@ -7,7 +7,7 @@ import { glob } from "glob";
 
 export const getStory = (storyFilePath: string) =>
   import(path.resolve(storyFilePath)).then(
-    (mod) => mod.default as RequestStory
+    (mod) => mod.default as RequestStory,
   );
 
 export const findStory = async (storyFilePath?: string) => {
@@ -33,7 +33,7 @@ export const findStory = async (storyFilePath?: string) => {
 
 export const visit = async (
   story: RequestStory,
-  visitor: (request: Request, story: RequestStory) => Promise<void>
+  visitor: (request: Request, story: RequestStory) => Promise<void>,
 ) => {
   for (const beforeStory of story.before ?? []) {
     await visit(beforeStory, visitor);
@@ -55,7 +55,7 @@ export const serialize = async (object: any): Promise<string | undefined> =>
 
 export const run = async (
   story: RequestStory,
-  options: { dryRun?: boolean; verbose?: boolean }
+  options: { dryRun?: boolean; verbose?: boolean },
 ) => {
   visit(story, async (request, story) => {
     let response: Response | undefined;
@@ -65,7 +65,7 @@ export const run = async (
     console.log(
       picocolors.green("✓"),
       story.name,
-      response?.status ?? picocolors.yellow("Dry run")
+      response?.status ?? picocolors.yellow("Dry run"),
     );
     if (options.verbose) {
       console.log(
@@ -84,7 +84,7 @@ export const run = async (
                 body: await serialize(await response.blob()),
               }
             : undefined,
-        })
+        }),
       );
     }
   });
