@@ -3,7 +3,7 @@ import picocolors from "picocolors";
 import fetchToCurl from "fetch-to-curl";
 import { getStory, serialize, visit } from "./lib/functions";
 
-program.name("fetchbook");
+program.name("fetchbook").description("Manage your HTTP requests");
 
 program
   .command("run")
