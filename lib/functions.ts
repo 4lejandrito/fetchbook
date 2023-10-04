@@ -27,7 +27,7 @@ export const findStory = async (storyFilePath?: string) => {
       choices: stories.map((story) => ({
         name: story.name,
         value: story,
-        description: story.url,
+        description: `${picocolors.green(story.request.method)} ${story.url}`,
       })),
     });
   }
