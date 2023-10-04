@@ -13,7 +13,7 @@
     "semantic-release": "^22.0.5"
   },
   "bin": {
-    "fetchbook": "./bin/fetchbook.js"
+    "fetchbook": "bin/fetchbook.js"
   },
   "scripts": {
     "test": "start-test test:start 3000 test:run",
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/4lejandrito/fetchbook.git"
+    "url": "git+https://github.com/4lejandrito/fetchbook.git"
   },
   "release": {
     "branches": [
