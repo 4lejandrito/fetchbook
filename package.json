@@ -5,12 +5,18 @@
   "author": "Alejandro Tardín <alejandro@tardin.com>",
   "license": "MIT",
   "dependencies": {
-    "bun": "^1.0.3"
+    "bun": "^1.0.3",
+    "commander": "^11.0.0",
+    "fetch-to-curl": "^0.6.0",
+    "json-colorizer": "^2.2.2",
+    "picocolors": "^1.0.0"
   },
   "devDependencies": {
+    "bun-types": "latest",
     "json-server": "^0.17.4",
+    "semantic-release": "^22.0.5",
     "start-server-and-test": "^2.0.1",
-    "semantic-release": "^22.0.5"
+    "typescript": "^5.0.0"
   },
   "bin": {
     "fetchbook": "bin/fetchbook.js"

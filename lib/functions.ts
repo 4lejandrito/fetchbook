@@ -1,5 +1,5 @@
 import colorizer from "json-colorizer";
-import { RequestStory } from "../..";
+import { RequestStory } from "..";
 import path from "path";
 
 export const getStory = (storyFilePath: string) =>
