@@ -11,9 +11,12 @@
     "fetch-to-curl": "^0.6.0",
     "glob": "^10.3.10",
     "json-colorizer": "^2.2.2",
-    "picocolors": "^1.0.0"
+    "picocolors": "^1.0.0",
+    "titleize": "^4.0.0",
+    "to-space-case": "^1.0.0"
   },
   "devDependencies": {
+    "@types/to-space-case": "^1.0.0",
     "bun-types": "latest",
     "husky": "^8.0.3",
     "json-server": "^0.17.4",

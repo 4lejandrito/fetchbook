@@ -2,8 +2,10 @@ import colorizer from "json-colorizer";
 import { RequestStory } from "..";
 import path from "path";
 import picocolors from "picocolors";
-import select from "@inquirer/select";
+import select, { Separator } from "@inquirer/select";
 import { glob } from "glob";
+import spaceCase from "to-space-case";
+import titleize from "titleize";
 
 export const getStory = (storyFilePath: string) =>
   import(path.resolve(storyFilePath)).then(
@@ -22,14 +24,32 @@ export const findStory = async (storyFilePath?: string) => {
       console.log(`No story files (${pattern}) found`);
       process.exit(0);
     }
-    const stories = await Promise.all(storyFiles.map(getStory));
+    const groups: { [K: string]: RequestStory[] } = {};
+    await Promise.all(
+      storyFiles.map(async (file, i) => {
+        const group = path.dirname(file);
+        groups[group] ??= [];
+        groups[group].push(await getStory(file));
+      }),
+    );
     return select({
       message: "Select a fetch story",
-      choices: stories.map((story) => ({
-        name: story.name,
-        value: story,
-        description: `${picocolors.green(story.request.method)} ${story.url}`,
-      })),
+      choices: Object.keys(groups)
+        .map((group) => [
+          new Separator(
+            picocolors.gray(
+              group.split(path.sep).map(spaceCase).map(titleize).join(" / "),
+            ),
+          ),
+          ...groups[group].map((story) => ({
+            name: story.name,
+            value: story,
+            description: `${picocolors.green(story.request.method)} ${
+              story.url
+            }`,
+          })),
+        ])
+        .flat(),
     });
   }
 };
