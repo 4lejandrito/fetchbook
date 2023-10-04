@@ -14,7 +14,9 @@ export const findStory = async (storyFilePath?: string) => {
   if (storyFilePath) {
     return getStory(storyFilePath);
   } else {
-    const storyFiles = await glob("**/*.fetch.ts");
+    const storyFiles = await glob("**/*.fetch.ts", {
+      ignore: ["node_modules"],
+    });
     if (storyFiles.length === 0) {
       console.log("No story files (*.fetch.ts) found");
       process.exit(0);
