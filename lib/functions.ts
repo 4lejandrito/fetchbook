@@ -12,10 +12,10 @@ export const getStory = (storyFilePath: string) =>
   import(path.resolve(storyFilePath)).then((mod) => mod.default as FetchStory);
 
 export const findStory = async (storyFilePath?: string) => {
-  if (storyFilePath) {
+  if (storyFilePath?.endsWith(".ts")) {
     return getStory(storyFilePath);
   } else {
-    const pattern = "**/*.fetch.ts";
+    const pattern = `${storyFilePath ? storyFilePath + "/" : ""}**/*.fetch.ts`;
     const storyFiles = await glob(pattern, {
       ignore: ["node_modules/**"],
     });
