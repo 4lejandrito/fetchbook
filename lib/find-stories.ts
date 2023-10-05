@@ -1,4 +1,3 @@
-import colorizer from "json-colorizer";
 import { FetchStory } from "..";
 import path from "path";
 import picocolors from "picocolors";
@@ -7,13 +6,14 @@ import Fuse from "fuse.js";
 import { glob } from "glob";
 import spaceCase from "to-space-case";
 import titleize from "titleize";
-import fetchToCurl from "fetch-to-curl";
-import expect from "expect";
 
-export const getStory = (storyFilePath: string) =>
+const getStory = (storyFilePath: string) =>
   import(path.resolve(storyFilePath)).then((mod) => mod.default as FetchStory);
 
-export const findStories = async (storyFilePath?: string, all?: boolean) => {
+export default async function findStories(
+  storyFilePath?: string,
+  all?: boolean,
+) {
   if (storyFilePath?.endsWith(".ts")) {
     return [await getStory(storyFilePath)];
   } else {
@@ -78,75 +78,4 @@ export const findStories = async (storyFilePath?: string, all?: boolean) => {
       }),
     ];
   }
-};
-
-export const visit = async (
-  stories: FetchStory[],
-  visitor: (story: FetchStory) => Promise<void>,
-) => {
-  for (const story of stories) {
-    await visit(story.before ?? [], visitor);
-    await visitor(story);
-    await visit(story.after ?? [], visitor);
-  }
-};
-
-export const serialize = async (object: any): Promise<string | undefined> =>
-  object instanceof Blob
-    ? object.type.includes("application/json")
-      ? await object.json()
-      : undefined
-    : typeof object === "object"
-    ? colorizer(JSON.stringify(object), { pretty: true })
-    : undefined;
-
-export const run = async (
-  story: FetchStory,
-  request: Request,
-  options: { dryRun?: boolean; verbose?: boolean },
-) => {
-  let response: Response | undefined;
-  if (!options.dryRun) {
-    response = await fetch(request.clone());
-    if (story.expect) {
-      expect({
-        status: response.status,
-        statusText: response.statusText,
-        headers: response.headers.toJSON(),
-      }).toMatchObject(story.expect);
-    }
-  }
-  console.log(
-    picocolors.green("✓"),
-    story.name,
-    response?.status ?? picocolors.yellow("Dry run"),
-  );
-  if (options.verbose) {
-    console.log(
-      await serialize({
-        request: {
-          url: request.url,
-          method: request.method,
-          headers: request.headers.count > 0 ? request.headers : undefined,
-          body: await serialize(await request.blob()),
-        },
-        response: response
-          ? {
-              status: response.status,
-              headers:
-                response.headers.count > 0 ? response.headers : undefined,
-              body: await serialize(await response.blob()),
-            }
-          : undefined,
-      }),
-    );
-  }
-};
-
-export const getCurl = async (request: Request) =>
-  fetchToCurl({
-    url: request.url,
-    method: request.method,
-    headers: request.headers,
-    body: await serialize(await request.blob()),
-  });
+}

@@ -1,5 +1,8 @@
 import { program } from "commander";
-import { getCurl, findStories, run, visit } from "./lib/functions";
+import visit from "./lib/visit";
+import findStories from "./lib/find-stories";
+import getCurl from "./lib/get-curl";
+import run from "./lib/run";
 
 program
   .name("fetchbook")
