@@ -8,6 +8,7 @@ import { glob } from "glob";
 import spaceCase from "to-space-case";
 import titleize from "titleize";
 import fetchToCurl from "fetch-to-curl";
+import expect from "expect";
 
 export const getStory = (storyFilePath: string) =>
   import(path.resolve(storyFilePath)).then((mod) => mod.default as FetchStory);
@@ -100,17 +101,24 @@ export const serialize = async (object: any): Promise<string | undefined> =>
     : undefined;
 
 export const run = async (
-  name: string,
+  story: FetchStory,
   request: Request,
   options: { dryRun?: boolean; verbose?: boolean },
 ) => {
   let response: Response | undefined;
   if (!options.dryRun) {
     response = await fetch(request.clone());
+    if (story.expect) {
+      expect({
+        status: response.status,
+        statusText: response.statusText,
+        headers: response.headers.toJSON(),
+      }).toMatchObject(story.expect);
+    }
   }
   console.log(
     picocolors.green("✓"),
-    name,
+    story.name,
     response?.status ?? picocolors.yellow("Dry run"),
   );
   if (options.verbose) {

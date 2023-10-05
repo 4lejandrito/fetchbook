@@ -31,6 +31,15 @@ export default {
           key: "value",
         }),
       },
+      expect: {
+        status: 404,
+      },
     },
   ],
+  expect: {
+    status: 200,
+    headers: {
+      "content-type": "application/json; charset=utf-8",
+    },
+  },
 } satisfies FetchStory;

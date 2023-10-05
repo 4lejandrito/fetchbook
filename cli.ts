@@ -15,7 +15,7 @@ program
       if (options.curl) {
         console.log(await getCurl(request));
       } else {
-        await run(story.name, request, options);
+        await run(story, request, options);
       }
     }),
   )
