@@ -1,5 +1,5 @@
 import colorizer from "json-colorizer";
-import { RequestStory } from "..";
+import { FetchStory } from "..";
 import path from "path";
 import picocolors from "picocolors";
 import autocomplete, { Separator } from "inquirer-autocomplete-standalone";
@@ -9,9 +9,7 @@ import spaceCase from "to-space-case";
 import titleize from "titleize";
 
 export const getStory = (storyFilePath: string) =>
-  import(path.resolve(storyFilePath)).then(
-    (mod) => mod.default as RequestStory,
-  );
+  import(path.resolve(storyFilePath)).then((mod) => mod.default as FetchStory);
 
 export const findStory = async (storyFilePath?: string) => {
   if (storyFilePath) {
@@ -42,7 +40,7 @@ export const findStory = async (storyFilePath?: string) => {
         const results = input
           ? fuse.search(input).map((result) => result.item)
           : items;
-        const groups: { [K: string]: RequestStory[] } = {};
+        const groups: { [K: string]: FetchStory[] } = {};
         await Promise.all(
           results.map(async (item) => {
             const group = path.dirname(item.file);
@@ -72,8 +70,8 @@ export const findStory = async (storyFilePath?: string) => {
 };
 
 export const visit = async (
-  story: RequestStory,
-  visitor: (request: Request, story: RequestStory) => Promise<void>,
+  story: FetchStory,
+  visitor: (request: Request, story: FetchStory) => Promise<void>,
 ) => {
   for (const beforeStory of story.before ?? []) {
     await visit(beforeStory, visitor);
@@ -94,7 +92,7 @@ export const serialize = async (object: any): Promise<string | undefined> =>
     : undefined;
 
 export const run = async (
-  story: RequestStory,
+  story: FetchStory,
   options: { dryRun?: boolean; verbose?: boolean },
 ) => {
   visit(story, async (request, story) => {

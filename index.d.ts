@@ -1,7 +1,7 @@
-export type RequestStory = {
+export type FetchStory = {
   name: string;
-  before?: RequestStory[];
-  after?: RequestStory[];
+  before?: FetchStory[];
+  after?: FetchStory[];
   url: string;
   request: RequestInit;
 };

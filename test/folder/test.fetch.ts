@@ -1,4 +1,4 @@
-import { RequestStory } from "../..";
+import { FetchStory } from "../..";
 
 export default {
   name: "Test 2",
@@ -9,4 +9,4 @@ export default {
       "Some-Header": "value",
     },
   },
-} satisfies RequestStory;
+} satisfies FetchStory;

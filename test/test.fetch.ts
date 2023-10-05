@@ -1,4 +1,4 @@
-import { RequestStory } from "..";
+import { FetchStory } from "..";
 
 export default {
   name: "Test",
@@ -33,4 +33,4 @@ export default {
       },
     },
   ],
-} satisfies RequestStory;
+} satisfies FetchStory;
