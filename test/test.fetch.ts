@@ -6,13 +6,13 @@ export default {
     {
       name: "Test before",
       url: "http://localhost:3000/posts/1",
-      request: {
+      init: {
         method: "GET",
       },
     },
   ],
   url: "http://localhost:3000/posts",
-  request: {
+  init: {
     method: "GET",
     headers: {
       "Some-Header": "value",
@@ -22,7 +22,7 @@ export default {
     {
       name: "Test after",
       url: "http://localhost:3000/posts/2",
-      request: {
+      init: {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

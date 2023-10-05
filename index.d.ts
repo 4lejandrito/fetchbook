@@ -3,5 +3,5 @@ export type FetchStory = {
   before?: FetchStory[];
   after?: FetchStory[];
   url: string;
-  request: RequestInit;
+  init: RequestInit;
 };

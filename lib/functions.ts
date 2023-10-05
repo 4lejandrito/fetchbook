@@ -66,7 +66,7 @@ export const findStories = async (storyFilePath?: string, all?: boolean) => {
               ...groups[group].map((story) => ({
                 name: story.name,
                 value: story,
-                description: `${picocolors.green(story.request.method)} ${
+                description: `${picocolors.green(story.init.method)} ${
                   story.url
                 }`,
               })),
@@ -85,7 +85,7 @@ export const visit = async (
   for (const beforeStory of story.before ?? []) {
     await visit(beforeStory, visitor);
   }
-  await visitor(new Request(story.url, story.request), story);
+  await visitor(new Request(story.url, story.init), story);
   for (const afterStory of story.after ?? []) {
     await visit(afterStory, visitor);
   }
