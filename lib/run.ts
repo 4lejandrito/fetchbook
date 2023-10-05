@@ -12,11 +12,17 @@ export default async function run(
   if (!options.dryRun) {
     response = await fetch(request.clone());
     if (story.expect) {
-      expect({
-        status: response.status,
-        statusText: response.statusText,
-        headers: response.headers.toJSON(),
-      }).toMatchObject(story.expect);
+      try {
+        expect({
+          status: response.status,
+          statusText: response.statusText,
+          headers: response.headers.toJSON(),
+        }).toMatchObject(story.expect);
+      } catch (err: any) {
+        console.log(picocolors.red("✘"), story.name, response.status);
+        console.error(err.message);
+        process.exit(1);
+      }
     }
   }
   console.log(
