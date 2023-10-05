@@ -1,6 +1,5 @@
 import { program } from "commander";
-import fetchToCurl from "fetch-to-curl";
-import { findStories, run, serialize, visit } from "./lib/functions";
+import { getCurl, findStories, run, visit } from "./lib/functions";
 
 program
   .name("fetchbook")
@@ -10,22 +9,14 @@ program
   .option("-v, --verbose", "verbose")
   .option("-d, --dry-run", "dry run")
   .option("-c, --curl", "convert to curl")
-  .action(async (storyFilePath, options) => {
-    for (const story of await findStories(storyFilePath, options.all)) {
+  .action(async (storyFilePath, options) =>
+    visit(await findStories(storyFilePath, options.all), async (story) => {
+      const request = new Request(story.url, story.init);
       if (options.curl) {
-        await visit(story, async (request) =>
-          console.log(
-            fetchToCurl({
-              url: request.url,
-              method: request.method,
-              headers: request.headers,
-              body: await serialize(await request.blob()),
-            }),
-          ),
-        );
+        console.log(await getCurl(request));
       } else {
-        await run(story, options);
+        await run(story.name, request, options);
       }
-    }
-  })
+    }),
+  )
   .parse();

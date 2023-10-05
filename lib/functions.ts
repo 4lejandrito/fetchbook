@@ -7,6 +7,7 @@ import Fuse from "fuse.js";
 import { glob } from "glob";
 import spaceCase from "to-space-case";
 import titleize from "titleize";
+import fetchToCurl from "fetch-to-curl";
 
 export const getStory = (storyFilePath: string) =>
   import(path.resolve(storyFilePath)).then((mod) => mod.default as FetchStory);
@@ -79,15 +80,13 @@ export const findStories = async (storyFilePath?: string, all?: boolean) => {
 };
 
 export const visit = async (
-  story: FetchStory,
-  visitor: (request: Request, story: FetchStory) => Promise<void>,
+  stories: FetchStory[],
+  visitor: (story: FetchStory) => Promise<void>,
 ) => {
-  for (const beforeStory of story.before ?? []) {
-    await visit(beforeStory, visitor);
-  }
-  await visitor(new Request(story.url, story.init), story);
-  for (const afterStory of story.after ?? []) {
-    await visit(afterStory, visitor);
+  for (const story of stories) {
+    await visit(story.before ?? [], visitor);
+    await visitor(story);
+    await visit(story.after ?? [], visitor);
   }
 };
 
@@ -101,37 +100,45 @@ export const serialize = async (object: any): Promise<string | undefined> =>
     : undefined;
 
 export const run = async (
-  story: FetchStory,
+  name: string,
+  request: Request,
   options: { dryRun?: boolean; verbose?: boolean },
-) =>
-  visit(story, async (request, story) => {
-    let response: Response | undefined;
-    if (!options.dryRun) {
-      response = await fetch(request.clone());
-    }
+) => {
+  let response: Response | undefined;
+  if (!options.dryRun) {
+    response = await fetch(request.clone());
+  }
+  console.log(
+    picocolors.green("✓"),
+    name,
+    response?.status ?? picocolors.yellow("Dry run"),
+  );
+  if (options.verbose) {
     console.log(
-      picocolors.green("✓"),
-      story.name,
-      response?.status ?? picocolors.yellow("Dry run"),
+      await serialize({
+        request: {
+          url: request.url,
+          method: request.method,
+          headers: request.headers.count > 0 ? request.headers : undefined,
+          body: await serialize(await request.blob()),
+        },
+        response: response
+          ? {
+              status: response.status,
+              headers:
+                response.headers.count > 0 ? response.headers : undefined,
+              body: await serialize(await response.blob()),
+            }
+          : undefined,
+      }),
     );
-    if (options.verbose) {
-      console.log(
-        await serialize({
-          request: {
-            url: request.url,
-            method: request.method,
-            headers: request.headers.count > 0 ? request.headers : undefined,
-            body: await serialize(await request.blob()),
-          },
-          response: response
-            ? {
-                status: response.status,
-                headers:
-                  response.headers.count > 0 ? response.headers : undefined,
-                body: await serialize(await response.blob()),
-              }
-            : undefined,
-        }),
-      );
-    }
+  }
+};
+
+export const getCurl = async (request: Request) =>
+  fetchToCurl({
+    url: request.url,
+    method: request.method,
+    headers: request.headers,
+    body: await serialize(await request.blob()),
   });
