@@ -10,19 +10,19 @@ export default async function run(
 ) {
   let response: Response | undefined;
   if (!options.dryRun) {
-    response = await fetch(request.clone());
-    if (story.expect) {
-      try {
+    try {
+      response = await fetch(request.clone());
+      if (story.expect) {
         expect({
           status: response.status,
           statusText: response.statusText,
           headers: response.headers.toJSON(),
         }).toMatchObject(story.expect);
-      } catch (err: any) {
-        console.log(picocolors.red("✘"), story.name, response.status);
-        console.error(err.message);
-        process.exit(1);
       }
+    } catch (err: any) {
+      console.log(picocolors.red("✘"), story.name, response?.status ?? "");
+      console.error(response ? err.message : err);
+      process.exit(1);
     }
   }
   console.log(
