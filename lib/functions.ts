@@ -16,9 +16,9 @@ export const findStory = async (storyFilePath?: string) => {
     return getStory(storyFilePath);
   } else {
     const pattern = `${storyFilePath ? storyFilePath + "/" : ""}**/*.fetch.ts`;
-    const storyFiles = await glob(pattern, {
-      ignore: ["node_modules/**"],
-    });
+    const storyFiles = (await glob(pattern)).filter(
+      (file) => !file.includes("node_modules"),
+    );
     if (storyFiles.length === 0) {
       console.log(`No story files (${pattern}) found`);
       process.exit(0);
