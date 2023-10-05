@@ -1,4 +1,4 @@
-import { FetchStory } from "../..";
+import { FetchStory, expect } from "../..";
 import addPostFetch from "./add-post.fetch";
 
 export default {
@@ -15,6 +15,24 @@ export default {
     headers: {
       "content-type": "application/json; charset=utf-8",
     },
+    body: expect.arrayContaining([
+      {
+        id: 1,
+        it: "works!",
+      },
+      {
+        id: 2,
+        it: "works!",
+      },
+      {
+        id: 3,
+        it: "works!",
+      },
+      {
+        id: 4,
+        it: "works!",
+      },
+    ]),
   },
   before: [addPostFetch, addPostFetch, addPostFetch],
 } satisfies FetchStory;

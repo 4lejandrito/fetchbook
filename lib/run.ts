@@ -17,6 +17,7 @@ export default async function run(
           status: response.status,
           statusText: response.statusText,
           headers: response.headers.toJSON(),
+          body: await serialize(await response.clone().blob()),
         }).toMatchObject(story.expect);
       }
     } catch (err: any) {
