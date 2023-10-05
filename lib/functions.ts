@@ -11,9 +11,9 @@ import titleize from "titleize";
 export const getStory = (storyFilePath: string) =>
   import(path.resolve(storyFilePath)).then((mod) => mod.default as FetchStory);
 
-export const findStory = async (storyFilePath?: string) => {
+export const findStories = async (storyFilePath?: string, all?: boolean) => {
   if (storyFilePath?.endsWith(".ts")) {
-    return getStory(storyFilePath);
+    return [await getStory(storyFilePath)];
   } else {
     const pattern = `${storyFilePath ? storyFilePath + "/" : ""}**/*.fetch.ts`;
     const storyFiles = (await glob(pattern)).filter(
@@ -26,6 +26,9 @@ export const findStory = async (storyFilePath?: string) => {
     const items = await Promise.all(
       storyFiles.map(async (file) => ({ file, story: await getStory(file) })),
     );
+    if (all) {
+      return items.map((item) => item.story);
+    }
     const fuse = new Fuse(items, {
       keys: [
         {
@@ -34,38 +37,44 @@ export const findStory = async (storyFilePath?: string) => {
         },
       ],
     });
-    return await autocomplete({
-      message: "Select a fetch story",
-      source: async (input) => {
-        const results = input
-          ? fuse.search(input).map((result) => result.item)
-          : items;
-        const groups: { [K: string]: FetchStory[] } = {};
-        await Promise.all(
-          results.map(async (item) => {
-            const group = path.dirname(item.file);
-            groups[group] ??= [];
-            groups[group].push(item.story);
-          }),
-        );
-        return Object.keys(groups)
-          .map((group) => [
-            new Separator(
-              picocolors.gray(
-                group.split(path.sep).map(spaceCase).map(titleize).join(" / "),
+    return [
+      await autocomplete({
+        message: "Select a fetch story",
+        source: async (input) => {
+          const results = input
+            ? fuse.search(input).map((result) => result.item)
+            : items;
+          const groups: { [K: string]: FetchStory[] } = {};
+          await Promise.all(
+            results.map(async (item) => {
+              const group = path.dirname(item.file);
+              groups[group] ??= [];
+              groups[group].push(item.story);
+            }),
+          );
+          return Object.keys(groups)
+            .map((group) => [
+              new Separator(
+                picocolors.gray(
+                  group
+                    .split(path.sep)
+                    .map(spaceCase)
+                    .map(titleize)
+                    .join(" / "),
+                ),
               ),
-            ),
-            ...groups[group].map((story) => ({
-              name: story.name,
-              value: story,
-              description: `${picocolors.green(story.request.method)} ${
-                story.url
-              }`,
-            })),
-          ])
-          .flat();
-      },
-    });
+              ...groups[group].map((story) => ({
+                name: story.name,
+                value: story,
+                description: `${picocolors.green(story.request.method)} ${
+                  story.url
+                }`,
+              })),
+            ])
+            .flat();
+        },
+      }),
+    ];
   }
 };
 
@@ -94,7 +103,7 @@ export const serialize = async (object: any): Promise<string | undefined> =>
 export const run = async (
   story: FetchStory,
   options: { dryRun?: boolean; verbose?: boolean },
-) => {
+) =>
   visit(story, async (request, story) => {
     let response: Response | undefined;
     if (!options.dryRun) {
@@ -126,4 +135,3 @@ export const run = async (
       );
     }
   });
-};
