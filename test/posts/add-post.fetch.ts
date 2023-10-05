@@ -2,15 +2,18 @@ import { FetchStory } from "../..";
 
 export default {
   name: "Add a post",
-  url: "http://localhost:3000/posts/0",
+  url: "http://localhost:3000/posts",
   init: {
     method: "POST",
     headers: {
-      "Some-Header": "value",
+      "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      it: "works!",
+    }),
   },
   expect: {
-    status: 404,
+    status: 201,
     headers: {
       "content-type": "application/json; charset=utf-8",
     },

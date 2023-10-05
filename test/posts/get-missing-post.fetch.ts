@@ -2,7 +2,7 @@ import { FetchStory } from "../..";
 
 export default {
   name: "Get a missing post",
-  url: "http://localhost:3000/posts/2",
+  url: "http://localhost:3000/posts/0",
   init: {
     method: "GET",
   },
