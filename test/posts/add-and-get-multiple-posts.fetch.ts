@@ -6,9 +6,6 @@ export default {
   url: "http://localhost:3000/posts",
   init: {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
   },
   expect: {
     status: 200,

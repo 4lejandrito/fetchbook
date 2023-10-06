@@ -3,21 +3,31 @@ import picocolors from "picocolors";
 import expect from "expect";
 import serialize from "./serialize";
 
+async function readBody(source: Request | Response) {
+  if (source.headers.get("content-type")?.includes("application/json")) {
+    return source.json();
+  } else if (source.body) {
+    return source.text();
+  }
+}
+
 export default async function run(
   story: FetchStory,
   request: Request,
   options: { dryRun?: boolean; verbose?: boolean },
 ) {
   let response: Response | undefined;
+  let body: string | undefined;
   if (!options.dryRun) {
     try {
       response = await fetch(request.clone());
+      body = await readBody(response);
       if (story.expect) {
         expect({
           status: response.status,
           statusText: response.statusText,
           headers: response.headers.toJSON(),
-          body: await serialize(await response.clone().blob()),
+          body,
         }).toMatchObject(story.expect);
       }
     } catch (err: any) {
@@ -38,14 +48,14 @@ export default async function run(
           url: request.url,
           method: request.method,
           headers: request.headers.count > 0 ? request.headers : undefined,
-          body: await serialize(await request.blob()),
+          body: await readBody(request),
         },
         response: response
           ? {
               status: response.status,
               headers:
                 response.headers.count > 0 ? response.headers : undefined,
-              body: await serialize(await response.blob()),
+              body,
             }
           : undefined,
       }),
