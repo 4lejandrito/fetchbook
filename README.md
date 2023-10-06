@@ -1,10 +1,13 @@
 # Fetchbook
 
-Fetchbook is a versatile command-line tool designed to help you manage your HTTP requests effectively. This README provides an overview of the Fetchbook CLI and the structure of the TypeScript story files it uses.
+Fetchbook is a command-line tool designed to help you manage your collections of HTTP requests. It is based on the standard [RequestInit](https://fetch.spec.whatwg.org/#requestinit) object, and runs in TypeScript with [bun.sh](https://bun.sh/).
+
+> [!WARNING]
+> :construction_worker_woman: Fetchbook is currently under active development, expect breaking changes.
 
 ## Installation
 
-To use Fetchbook, you need to install it globally on your system. Run the following command to install it:
+To use Fetchbook, you can install it globally or locally in your existing project. Run the following command to install it globally:
 
 ```bash
 npm install -g fetchbook
@@ -12,7 +15,7 @@ npm install -g fetchbook
 
 ## Usage
 
-The Fetchbook CLI allows you to make HTTP requests, process multiple TypeScript story files, and generate cURL commands for your requests. Here's the basic usage:
+The Fetchbook CLI allows you to run multiple TypeScript [fetch story files](#fetch-story-files), and generate cURL commands for your requests. Here's the basic usage:
 
 ```bash
 fetchbook [story] [options]
@@ -20,7 +23,7 @@ fetchbook [story] [options]
 
 ### Arguments
 
-- `[story]` (optional): Path to a TypeScript story file (ending with `.fetch.ts`) that describes an HTTP request. If omitted, Fetchbook will attempt to process all story files in the current folder recursively when using the `-a` option.
+- `[story]` (optional): Path to a [fetch story file](#fetch-story-files) (or folder) that describes an HTTP request. If omitted, Fetchbook will prompt you to search and choose a fetch story in the current folder.
 
 ### Options
 
@@ -63,10 +66,10 @@ fetchbook [story] [options]
 
 ## Fetch Story Files
 
-Story files are TypeScript modules that must comply with the following TypeScript definition:
+Fetch story files are TypeScript modules ending with `.fetch.ts` that must comply with the following type definition:
 
 ```typescript
-export type FetchStory = {
+type FetchStory = {
   name: string;
   url: string;
   init: RequestInit;
@@ -92,26 +95,28 @@ Here's an explanation of each property within the `FetchStory` type definition:
 
 ### Example Fetch Story File
 
-Here's an example of a Fetchbook TypeScript story file adhering to the TypeScript definition and the naming convention (ending with `.fetch.ts`):
+Here's an example of a Fetchbook fetch story file adhering to the TypeScript definition and the naming convention (ending with `.fetch.ts`):
 
 ```typescript
-// ExampleStory.fetch.ts (TypeScript module)
+// examples/venusaur.fetch.ts
 import { FetchStory } from "fetchbook";
 
 const story: FetchStory = {
-  name: "Fetch Data",
-  url: "https://api.example.com/data",
+  name: "Get info about Venusaur",
+  url: "https://pokeapi.co/api/v2/pokemon/venusaur",
   init: {
     method: "GET",
-    headers: {
-      Authorization: "Bearer YOUR_ACCESS_TOKEN",
-      "Content-Type": "application/json",
-    },
   },
   expect: {
     status: 200,
     headers: {
-      "Content-Type": "application/json",
+      "content-type": "application/json; charset=utf-8",
+    },
+    body: {
+      order: 3,
+      name: "venusaur",
+      height: 20,
+      weight: 1000,
     },
   },
 };
