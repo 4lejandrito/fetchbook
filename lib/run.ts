@@ -37,7 +37,7 @@ export default async function run(
     }
   }
   console.log(
-    picocolors.green("✓"),
+    picocolors.green("✔"),
     story.name,
     response?.status ?? picocolors.yellow("Dry run"),
   );
