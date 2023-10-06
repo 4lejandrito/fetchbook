@@ -17,7 +17,9 @@ program
   .action(async (storyFilePath, options) =>
     visit(
       await findStories(
-        options.demo ? path.join(__dirname, "examples") : storyFilePath,
+        options.demo
+          ? path.relative(process.cwd(), path.join(__dirname, "examples"))
+          : storyFilePath,
         options.all,
       ),
       async (story) => {

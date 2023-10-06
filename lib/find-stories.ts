@@ -8,25 +8,39 @@ import spaceCase from "to-space-case";
 import titleize from "titleize";
 
 const getStory = (storyFilePath: string) =>
-  import(path.resolve(storyFilePath)).then((mod) => mod.default as FetchStory);
+  import(storyFilePath).then((mod) => mod.default as FetchStory);
+
+const packageRoot = path.join(__dirname, "..");
+const isFetchbookFile = (file: string) => {
+  const relative = path.relative(packageRoot, file);
+  return relative && !relative.startsWith("..") && !path.isAbsolute(relative);
+};
 
 export default async function findStories(
   storyFilePath?: string,
   all?: boolean,
 ) {
   if (storyFilePath?.endsWith(".ts")) {
-    return [await getStory(storyFilePath)];
+    return [await getStory(path.resolve(storyFilePath))];
   } else {
-    const pattern = `${storyFilePath ? storyFilePath + "/" : ""}**/*.fetch.ts`;
-    const storyFiles = (await glob(pattern)).filter(
-      (file) => !file.includes("node_modules"),
-    );
+    const pattern = "**/*.fetch.ts";
+    const cwd = storyFilePath
+      ? path.join(process.cwd(), storyFilePath)
+      : process.cwd();
+    const storyFiles = (await glob(pattern, { cwd }))
+      .map((file) => path.join(cwd, file))
+      .filter(
+        (file) => isFetchbookFile(file) || !file.includes("node_modules"),
+      );
     if (storyFiles.length === 0) {
       console.log(`No story files (${pattern}) found`);
       process.exit(0);
     }
     const items = await Promise.all(
-      storyFiles.map(async (file) => ({ file, story: await getStory(file) })),
+      storyFiles.map(async (file) => ({
+        file,
+        story: await getStory(file),
+      })),
     );
     if (all) {
       return items.map((item) => item.story);
@@ -47,15 +61,11 @@ export default async function findStories(
             ? fuse.search(input).map((result) => result.item)
             : items;
           const groups: { [K: string]: FetchStory[] } = {};
-          const packageRoot = path.join(__dirname, "..");
           await Promise.all(
             results.map(async (item) => {
-              const relative = path.relative(packageRoot, item.file);
               const group = path.dirname(
-                relative &&
-                  !relative.startsWith("..") &&
-                  !path.isAbsolute(relative)
-                  ? relative
+                isFetchbookFile(item.file)
+                  ? path.relative(packageRoot, item.file)
                   : item.file,
               );
               groups[group] ??= [];
