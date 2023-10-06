@@ -47,9 +47,17 @@ export default async function findStories(
             ? fuse.search(input).map((result) => result.item)
             : items;
           const groups: { [K: string]: FetchStory[] } = {};
+          const packageRoot = path.join(__dirname, "..");
           await Promise.all(
             results.map(async (item) => {
-              const group = path.dirname(item.file);
+              const relative = path.relative(packageRoot, item.file);
+              const group = path.dirname(
+                relative &&
+                  !relative.startsWith("..") &&
+                  !path.isAbsolute(relative)
+                  ? relative
+                  : item.file,
+              );
               groups[group] ??= [];
               groups[group].push(item.story);
             }),

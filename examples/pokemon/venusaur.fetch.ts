@@ -1,7 +1,7 @@
-import { FetchStory } from "..";
+import { FetchStory } from "../..";
 
 const story: FetchStory = {
-  name: "Get info about Venusaur",
+  name: "Best Pokémon ever",
   url: "https://pokeapi.co/api/v2/pokemon/venusaur",
   init: {
     method: "GET",

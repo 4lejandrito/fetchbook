@@ -5,12 +5,18 @@ Fetchbook is a command-line tool designed to help you manage your collections of
 > [!WARNING]
 > :construction_worker_woman: Fetchbook is currently under active development, expect breaking changes.
 
-## Installation
-
-To use Fetchbook, you can install it globally or locally in your existing project. Run the following command to install it globally:
+You can try out Fetchbook just by running this command:
 
 ```bash
-npm install -g fetchbook
+npx fetchbook --demo -v
+```
+
+## Installation
+
+To use Fetchbook in you own projects, you can install it like this:
+
+```bash
+npm install fetchbook
 ```
 
 ## Usage
