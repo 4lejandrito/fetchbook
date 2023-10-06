@@ -21,7 +21,7 @@ npm install fetchbook
 
 ## Usage
 
-The Fetchbook CLI allows you to run multiple [fetch story files](#fetch-story-files), and generate cURL commands for your requests. Here's the basic usage:
+Fetchbook allows you to run and test multiple [fetch story files](#fetch-story-files). Here's the basic usage:
 
 ```bash
 fetchbook [story] [options]
