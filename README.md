@@ -2,14 +2,14 @@
 
 Fetchbook is a command-line tool designed to help you manage your collections of HTTP requests. It is based on the standard [RequestInit](https://fetch.spec.whatwg.org/#requestinit) object, and runs in TypeScript with [bun.sh](https://bun.sh/).
 
-> [!WARNING]
-> :construction_worker_woman: Fetchbook is currently under active development, expect breaking changes.
-
-You can try out Fetchbook just by running this command:
+You can try it out just by running this command:
 
 ```bash
 npx fetchbook --demo -v
 ```
+
+> [!WARNING]
+> :construction_worker_woman: Fetchbook is currently under active development, expect breaking changes.
 
 ## Installation
 
@@ -21,7 +21,7 @@ npm install fetchbook
 
 ## Usage
 
-The Fetchbook CLI allows you to run multiple TypeScript [fetch story files](#fetch-story-files), and generate cURL commands for your requests. Here's the basic usage:
+The Fetchbook CLI allows you to run multiple [fetch story files](#fetch-story-files), and generate cURL commands for your requests. Here's the basic usage:
 
 ```bash
 fetchbook [story] [options]
