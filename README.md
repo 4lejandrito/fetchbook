@@ -74,6 +74,7 @@ export type FetchStory = {
     status: number;
     statusText: string;
     headers: Record<string, string>;
+    body: any;
   }>;
   before?: FetchStory[];
   after?: FetchStory[];
@@ -85,7 +86,7 @@ Here's an explanation of each property within the `FetchStory` type definition:
 - `name` (string): A descriptive name for the story, helping you identify and organize your requests.
 - `url` (string): The URL of the HTTP request.
 - `init` ([RequestInit](https://fetch.spec.whatwg.org/#requestinit)): An object containing the request's initialization options, including method, headers, and body.
-- `expect` (optional): Defines your expectations for the response, such as expected HTTP status code, status text, and headers.
+- `expect` (optional): Defines your expectations for the response, such as expected HTTP status code, status text, headers and body.
 - `before` (optional): An array of `FetchStory` objects representing requests to execute before the main request.
 - `after` (optional): An array of `FetchStory` objects representing requests to execute after the main request.
 
