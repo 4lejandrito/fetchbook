@@ -48,7 +48,7 @@ export default async function run(
           url: request.url,
           method: request.method,
           headers: request.headers.count > 0 ? request.headers : undefined,
-          body: await readBody(request),
+          body: request.method === "GET" ? undefined : await readBody(request),
         },
         response: response
           ? {
