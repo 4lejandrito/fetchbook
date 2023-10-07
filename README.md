@@ -1,4 +1,4 @@
-# Fetchbook
+# Fetchbook [![npm version](https://img.shields.io/npm/v/fetchbook.svg?style=flat)](https://www.npmjs.com/package/fetchbook)
 
 Fetchbook is a command-line tool designed to help you manage your collections of HTTP requests. It is based on the standard [RequestInit](https://fetch.spec.whatwg.org/#requestinit) object, and runs in TypeScript with [bun.sh](https://bun.sh/).
 
