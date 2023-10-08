@@ -34,7 +34,7 @@
   },
   "scripts": {
     "test": "start-test test:start 3000 test:run",
-    "test:run": "npx fetchbook test --all",
+    "test:run": "npx fetchbook run test --all",
     "test:start": "json-server --quiet --host :: test/db.js",
     "semantic-release": "semantic-release",
     "prepare": "husky install"

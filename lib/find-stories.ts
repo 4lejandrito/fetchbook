@@ -16,10 +16,19 @@ const isFetchbookFile = (file: string) => {
   return relative && !relative.startsWith("..") && !path.isAbsolute(relative);
 };
 
+const getStoryFilePath = (
+  storyFilePath?: string,
+  options?: { demo?: boolean },
+) =>
+  options?.demo
+    ? path.relative(process.cwd(), path.join(packageRoot, "examples"))
+    : storyFilePath;
+
 export default async function findStories(
   storyFilePath?: string,
-  all?: boolean,
+  options?: { demo?: boolean; all?: boolean },
 ) {
+  storyFilePath = getStoryFilePath(storyFilePath, options);
   if (storyFilePath?.endsWith(".ts")) {
     return [await getStory(path.resolve(storyFilePath))];
   } else {
@@ -42,7 +51,7 @@ export default async function findStories(
         story: await getStory(file),
       })),
     );
-    if (all) {
+    if (options?.all) {
       return items.map((item) => item.story);
     }
     const fuse = new Fuse(items, {

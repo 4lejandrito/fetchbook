@@ -5,7 +5,7 @@ Fetchbook is a command-line tool designed to help you manage your collections of
 You can try it out just by running this command:
 
 ```bash
-npx fetchbook --demo -v
+npx fetchbook run --demo -v
 ```
 
 > [!WARNING]
@@ -21,53 +21,81 @@ npm install fetchbook
 
 ## Usage
 
-Fetchbook allows you to run and test multiple [fetch story files](#fetch-story-files). Here's the basic usage:
+Fetchbook is split in different commands that operate on one or multiple [fetch story files](#fetch-story-files).
+
+### Run
 
 ```bash
-fetchbook [story] [options]
+fetchbook run [story] [options]
 ```
 
-### Arguments
+Run one or many [fetch story files](#fetch-story-files).
+
+#### Arguments
 
 - `[story]` (optional): Path to a [fetch story file](#fetch-story-files) (or folder) that describes an HTTP request. If omitted, Fetchbook will prompt you to search and choose a fetch story in the current folder.
 
-### Options
+#### Options
 
-- `-a, --all`: Process all TypeScript story files in the current folder recursively.
+- `-a, --all`: Run all [fetch story files](#fetch-story-files) in the current folder recursively.
 - `-v, --verbose`: Enable verbose output, providing additional information about the request and response.
 - `-d, --dry-run`: Perform a dry run, simulating the request without making an actual HTTP call.
-- `-c, --curl`: Convert the request to a cURL command and display it in the terminal instead of making the HTTP request.
 
-### Examples
+#### Examples
 
-1. Run a single TypeScript story file:
+1. Run a single [fetch story file](#fetch-story-files):
 
    ```bash
-   fetchbook path/to/your/story.fetch.ts
+   fetchbook run path/to/your/story.fetch.ts
    ```
 
-2. Run all TypeScript story files in the current folder and its subfolders:
+2. Run all [fetch story files](#fetch-story-files) in the current folder and its subfolders:
 
    ```bash
-   fetchbook -a
+   fetchbook run -a
    ```
 
-3. Convert a request to a cURL command:
+3. Perform a dry run of a [fetch story file](#fetch-story-files):
 
    ```bash
-   fetchbook path/to/your/story.fetch.ts -c
+   fetchbook run path/to/your/story.fetch.ts -d
    ```
 
-4. Perform a dry run of a request:
+4. Run a [fetch story file](#fetch-story-files) with verbose output:
 
    ```bash
-   fetchbook path/to/your/story.fetch.ts -d
+   fetchbook run path/to/your/story.fetch.ts -v
    ```
 
-5. Run a request with verbose output:
+### Export
+
+```bash
+fetchbook export [story] [options]
+```
+
+Export a [fetch story file](#fetch-story-files) as other formats (now only `curl` is supported) and display it in the terminal instead of making the HTTP request.
+
+#### Arguments
+
+- `[story]` (optional): Path to a [fetch story file](#fetch-story-files) (or folder) that describes an HTTP request. If omitted, Fetchbook will prompt you to search and choose a fetch story in the current folder.
+
+#### Options
+
+- `-f, --format`: Export the request as a cURL command and display it in the terminal instead of making the HTTP request.
+- `-a, --all`: Export all [fetch story files](#fetch-story-files) in the current folder recursively.
+
+#### Examples
+
+1. Export a single [fetch story file](#fetch-story-files) as a cURL command:
 
    ```bash
-   fetchbook path/to/your/story.fetch.ts -v
+   fetchbook export --format curl path/to/your/story.fetch.ts
+   ```
+
+2. Export all [fetch story files](#fetch-story-files) in the current folder and its subfolders:
+
+   ```bash
+   fetchbook export --format curl -a
    ```
 
 ## Fetch Story Files
@@ -130,7 +158,7 @@ const story: FetchStory = {
 export default story;
 ```
 
-Ensure that your story files adhere to this structure, type definition, and the naming convention (`.fetch.ts`) to work seamlessly with Fetchbook. You can create multiple TypeScript story files to describe different HTTP requests and use Fetchbook to manage and execute them as needed.
+Ensure that your story files adhere to this structure, type definition, and the naming convention (`.fetch.ts`) to work seamlessly with Fetchbook. You can create multiple fetch story files to describe different HTTP requests and use Fetchbook to manage and execute them as needed.
 
 ## License
 

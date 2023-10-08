@@ -1,35 +1,40 @@
-import { program } from "commander";
+import { Option, program } from "commander";
 import visit from "./lib/visit";
 import findStories from "./lib/find-stories";
 import getCurl from "./lib/get-curl";
 import run from "./lib/run";
-import path from "path";
+
+program.name("fetchbook").description("Manage your HTTP requests");
 
 program
-  .name("fetchbook")
-  .description("Manage your HTTP requests")
+  .command("run")
+  .description("run your stories")
   .argument("[story]", "story file path")
   .option("-a, --all", "process all stories in a folder recursively")
   .option("-v, --verbose", "verbose")
   .option("-d, --dry-run", "dry run")
-  .option("-c, --curl", "convert to curl")
   .option("--demo", "use demo stories")
   .action(async (storyFilePath, options) =>
-    visit(
-      await findStories(
-        options.demo
-          ? path.relative(process.cwd(), path.join(__dirname, "examples"))
-          : storyFilePath,
-        options.all,
-      ),
-      async (story) => {
-        const request = new Request(story.url, story.init);
-        if (options.curl) {
-          console.log(await getCurl(request));
-        } else {
-          await run(story, request, options);
-        }
-      },
+    visit(await findStories(storyFilePath, options), (story) =>
+      run(story, options),
     ),
+  );
+
+program
+  .command("export")
+  .description("export your stories to existing formats")
+  .argument("[story]", "story file path")
+  .addOption(
+    new Option("-f, --format <format>", "format")
+      .choices(["curl"])
+      .default("curl"),
   )
-  .parse();
+  .option("-a, --all", "process all stories in a folder recursively")
+  .option("--demo", "use demo stories")
+  .action(async (storyFilePath, options) =>
+    visit(await findStories(storyFilePath, options), async (story) =>
+      console.log(await getCurl(new Request(story.url, story.init))),
+    ),
+  );
+
+program.parse();

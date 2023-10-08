@@ -13,9 +13,9 @@ async function readBody(source: Request | Response) {
 
 export default async function run(
   story: FetchStory,
-  request: Request,
   options: { dryRun?: boolean; verbose?: boolean },
 ) {
+  const request = new Request(story.url, story.init);
   let response: Response | undefined;
   let body: string | undefined;
   if (!options.dryRun) {
