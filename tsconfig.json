@@ -18,5 +18,6 @@
     "types": [
       "bun-types" // add Bun global
     ]
-  }
+  },
+  "include": ["**/*.ts", "package.json"]
 }

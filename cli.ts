@@ -3,8 +3,22 @@ import visit from "./lib/visit";
 import findStories from "./lib/find-stories";
 import getCurl from "./lib/get-curl";
 import run from "./lib/run";
+import { createProject, initProject } from "./lib/project";
+import picocolors from "picocolors";
 
 program.name("fetchbook").description("Manage your HTTP requests");
+
+program
+  .command("init")
+  .argument(
+    "[name]",
+    "name of the project, omit it to initialize an existing one",
+  )
+  .description("initialize a fetchbook project")
+  .action(async (name) => {
+    await (name ? createProject(name) : initProject());
+    console.log(picocolors.green("✔"), "Project initialized successfully");
+  });
 
 program
   .command("run")

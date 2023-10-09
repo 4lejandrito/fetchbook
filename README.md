@@ -13,7 +13,19 @@ npx fetchbook run --demo -v
 
 ## Installation
 
-To use Fetchbook in you own projects, you can install it like this:
+To use Fetchbook in you own project:
+
+```bash
+npx fetchbook init
+```
+
+To create a separate Fetchbook project:
+
+```bash
+npx fetchbook init <project name>
+```
+
+Alternatively, you can install it manually:
 
 ```bash
 npm install fetchbook
@@ -108,6 +120,26 @@ npx fetchbook export --format=curl --demo -a
 
    ```bash
    fetchbook export --format curl -a
+   ```
+
+### Init
+
+```bash
+npx fetchbook init [name]
+```
+
+Initialize a fetchbook project.
+
+#### Arguments
+
+- `[name]` (optional): Name of the project. If set Fetchbook will create a new folder with a `package.json` file and a bunch of sample [fetch story files](#fetch-story-files). If not set Fetchbook will initialize an existing project.
+
+#### Examples
+
+1. Run a single [fetch story file](#fetch-story-files):
+
+   ```bash
+   npx fetchbook init my-fetchbook-project
    ```
 
 ## Fetch Story Files
