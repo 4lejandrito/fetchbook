@@ -1,4 +1,4 @@
-import { FetchStory } from "..";
+import { FetchStory } from "fetchbook";
 import picocolors from "picocolors";
 import expect from "expect";
 import serialize from "./serialize";

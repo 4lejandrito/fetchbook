@@ -1,4 +1,4 @@
-import { FetchStory } from "..";
+import { FetchStory } from "fetchbook";
 import path from "path";
 import picocolors from "picocolors";
 import autocomplete, { Separator } from "inquirer-autocomplete-standalone";

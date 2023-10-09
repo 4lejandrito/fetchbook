@@ -1,4 +1,4 @@
-import { FetchStory, expect } from "../..";
+import { FetchStory, expect } from "fetchbook";
 import addPostFetch from "./add-post.fetch";
 
 export default {

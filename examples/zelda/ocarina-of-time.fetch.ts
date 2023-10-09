@@ -1,4 +1,4 @@
-import { FetchStory } from "../..";
+import { FetchStory } from "fetchbook";
 
 const story: FetchStory = {
   name: "Best game ever",

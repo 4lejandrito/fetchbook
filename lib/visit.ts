@@ -1,4 +1,4 @@
-import { FetchStory } from "..";
+import { FetchStory } from "fetchbook";
 
 export default async function visit(
   stories: FetchStory[],
