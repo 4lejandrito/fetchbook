@@ -31,6 +31,12 @@ fetchbook run [story] [options]
 
 Run one or many [fetch story files](#fetch-story-files).
 
+#### Demo
+
+```bash
+npx fetchbook run --demo -v
+```
+
 #### Arguments
 
 - `[story]` (optional): Path to a [fetch story file](#fetch-story-files) (or folder) that describes an HTTP request. If omitted, Fetchbook will prompt you to search and choose a fetch story in the current folder.
@@ -74,6 +80,12 @@ fetchbook export [story] [options]
 ```
 
 Export a [fetch story file](#fetch-story-files) as other formats (now only `curl` is supported) and display it in the terminal instead of making the HTTP request.
+
+#### Demo
+
+```bash
+npx fetchbook export --format=curl --demo -a
+```
 
 #### Arguments
 
