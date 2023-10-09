@@ -1,8 +1,8 @@
 import { FetchStory } from "fetchbook";
 
 const story: FetchStory = {
-  name: "Best Pokémon ever",
-  url: "https://pokeapi.co/api/v2/pokemon/venusaur",
+  name: "A Link to the Past",
+  url: "https://zelda.fanapis.com/api/games/5f6ce9d805615a85623ec2b8",
   init: {
     method: "GET",
   },
@@ -12,10 +12,10 @@ const story: FetchStory = {
       "content-type": "application/json; charset=utf-8",
     },
     body: {
-      order: 3,
-      name: "venusaur",
-      height: 20,
-      weight: 1000,
+      data: {
+        name: "The Legend of Zelda: A Link to the Past",
+        released_date: " April 13, 1992",
+      },
     },
   },
 };

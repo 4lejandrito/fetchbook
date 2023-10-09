@@ -1,8 +1,8 @@
 import { FetchStory } from "fetchbook";
 
 const story: FetchStory = {
-  name: "Best game ever",
-  url: "https://zelda.fanapis.com/api/games/5f6ce9d805615a85623ec2ba",
+  name: "Charizard",
+  url: "https://pokeapi.co/api/v2/pokemon/charizard",
   init: {
     method: "GET",
   },
@@ -12,10 +12,10 @@ const story: FetchStory = {
       "content-type": "application/json; charset=utf-8",
     },
     body: {
-      data: {
-        name: "The Legend of Zelda: Ocarina of Time",
-        released_date: " November 23, 1998",
-      },
+      order: 7,
+      name: "charizard",
+      height: 17,
+      weight: 905,
     },
   },
 };
