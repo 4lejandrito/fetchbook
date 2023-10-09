@@ -73,9 +73,10 @@ export default async function findStories(
           await Promise.all(
             results.map(async (item) => {
               const group = path.dirname(
-                isFetchbookFile(item.file)
-                  ? path.relative(packageRoot, item.file)
-                  : item.file,
+                path.relative(
+                  isFetchbookFile(item.file) ? packageRoot : cwd,
+                  item.file,
+                ),
               );
               groups[group] ??= [];
               groups[group].push(item.story);
