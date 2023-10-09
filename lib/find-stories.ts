@@ -1,8 +1,6 @@
 import { FetchStory } from "fetchbook";
 import path from "path";
-import picocolors from "picocolors";
-import autocomplete, { Separator } from "inquirer-autocomplete-standalone";
-import Fuse from "fuse.js";
+import selectStory from "./select-story";
 import { glob } from "glob";
 import spaceCase from "to-space-case";
 import titleize from "titleize";
@@ -36,76 +34,42 @@ export default async function findStories(
     const cwd = storyFilePath
       ? path.join(process.cwd(), storyFilePath)
       : process.cwd();
-    const storyFiles = (await glob(pattern, { cwd }))
-      .map((file) => path.join(cwd, file))
-      .filter(
-        (file) =>
-          (options?.demo && isFetchbookFile(file)) ||
-          !file.includes("node_modules"),
-      );
-    if (storyFiles.length === 0) {
+    const storyToFile = new Map<FetchStory, string>();
+    const stories = await Promise.all(
+      (await glob(pattern, { cwd }))
+        .map((file) => path.join(cwd, file))
+        .filter(
+          (file) =>
+            (options?.demo && isFetchbookFile(file)) ||
+            !file.includes("node_modules"),
+        )
+        .map(async (file) => {
+          const story = await getStory(file);
+          storyToFile.set(story, file);
+          return story;
+        }),
+    );
+    if (stories.length === 0) {
       console.log(`No story files (${pattern}) found`);
       process.exit(0);
     }
-    const items = await Promise.all(
-      storyFiles.map(async (file) => ({
-        file,
-        story: await getStory(file),
-      })),
-    );
     if (options?.all) {
-      return items.map((item) => item.story);
+      return stories;
     }
-    const fuse = new Fuse(items, {
-      keys: [
-        {
-          name: "title",
-          getFn: (item) => item.story.name,
-        },
-      ],
-    });
     return [
-      await autocomplete({
-        message: "Select a fetch story",
-        source: async (input) => {
-          const results = input
-            ? fuse.search(input).map((result) => result.item)
-            : items;
-          const groups: { [K: string]: FetchStory[] } = {};
-          await Promise.all(
-            results.map(async (item) => {
-              const group = path.dirname(
-                path.relative(
-                  isFetchbookFile(item.file) ? packageRoot : cwd,
-                  item.file,
-                ),
-              );
-              groups[group] ??= [];
-              groups[group].push(item.story);
-            }),
-          );
-          return Object.keys(groups)
-            .map((group) => [
-              new Separator(
-                picocolors.gray(
-                  group
-                    .split(path.sep)
-                    .map(spaceCase)
-                    .map(titleize)
-                    .join(" / "),
-                ),
-              ),
-              ...groups[group].map((story) => ({
-                name: story.name,
-                value: story,
-                description: `${picocolors.green(story.init.method)} ${
-                  story.url
-                }`,
-              })),
-            ])
-            .flat();
-        },
-      }),
+      await selectStory(stories, (story) =>
+        path
+          .dirname(
+            path.relative(
+              isFetchbookFile(storyToFile.get(story) ?? "") ? packageRoot : cwd,
+              storyToFile.get(story) ?? "",
+            ),
+          )
+          .split(path.sep)
+          .map(spaceCase)
+          .map(titleize)
+          .join(" / "),
+      ),
     ];
   }
 }
