@@ -39,7 +39,9 @@ export default async function findStories(
     const storyFiles = (await glob(pattern, { cwd }))
       .map((file) => path.join(cwd, file))
       .filter(
-        (file) => isFetchbookFile(file) || !file.includes("node_modules"),
+        (file) =>
+          (options?.demo && isFetchbookFile(file)) ||
+          !file.includes("node_modules"),
       );
     if (storyFiles.length === 0) {
       console.log(`No story files (${pattern}) found`);
