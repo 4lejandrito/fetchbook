@@ -50,8 +50,7 @@ export default async function findStories(
         }),
     );
     if (stories.length === 0) {
-      console.log(`No story files (${pattern}) found`);
-      process.exit(0);
+      throw `No story files (${pattern}) found`;
     }
     if (options?.all) {
       return stories;

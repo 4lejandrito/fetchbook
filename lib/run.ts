@@ -32,8 +32,7 @@ export default async function run(
       }
     } catch (err: any) {
       console.log(picocolors.red("✘"), story.name, response?.status ?? "");
-      console.error(response ? err.message : err);
-      process.exit(1);
+      throw response ? err.message : err;
     }
   }
   console.log(
