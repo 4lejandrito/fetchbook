@@ -33,6 +33,6 @@ export async function initProject(cwd = ".") {
   )} --dev fetchbook@^${version}`;
   await copy(
     path.join(__dirname, "..", "examples"),
-    path.join(cwd, "fetchbook"),
+    path.join(cwd, "fetchbook", "samples"),
   );
 }
