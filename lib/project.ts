@@ -1,20 +1,26 @@
-import { mkdir, writeJson, copy, exists } from "fs-extra";
+import { mkdir, writeFile, copy, exists } from "fs-extra";
 import path from "path";
 import { $ } from "execa";
 import { version } from "../package.json";
 
 export async function createProject(name: string) {
   await mkdir(name);
-  await writeJson(path.join(name, "package.json"), {
-    name: `${name}-fetchbook`,
-    version: "1.0.0",
-    description: `${name}'s fetchbook`,
-    scripts: {
-      test: "fetchbook run --all",
-    },
-  });
+  await writeFile(
+    path.join(name, "package.json"),
+    JSON.stringify(
+      {
+        name: `${name}-fetchbook`,
+        version: "1.0.0",
+        description: `${name}'s fetchbook`,
+        scripts: {
+          test: "fetchbook run --all",
+        },
+      },
+      null,
+      2,
+    ),
+  );
   await initProject(name);
-  await $`prettier --write ${name}`;
 }
 
 export async function initProject(cwd = ".") {
