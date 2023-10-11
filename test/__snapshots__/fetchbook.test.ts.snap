@@ -1,0 +1,91 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fetchbook 1`] = `0`;
+
+exports[`fetchbook 2`] = `""`;
+
+exports[`fetchbook 3`] = `
+"Usage: fetchbook [options] [command]
+
+Manage your HTTP requests
+
+Options:
+  -h, --help                display help for command
+
+Commands:
+  init [name]               initialize a fetchbook project
+  run [options] [story]     run your stories
+  export [options] [story]  export your stories to existing formats
+  help [command]            display help for command"
+`;
+
+exports[`fetchbook --help 1`] = `0`;
+
+exports[`fetchbook --help 2`] = `
+"Usage: fetchbook [options] [command]
+
+Manage your HTTP requests
+
+Options:
+  -h, --help                display help for command
+
+Commands:
+  init [name]               initialize a fetchbook project
+  run [options] [story]     run your stories
+  export [options] [story]  export your stories to existing formats
+  help [command]            display help for command"
+`;
+
+exports[`fetchbook --help 3`] = `""`;
+
+exports[`fetchbook run --all 1`] = `0`;
+
+exports[`fetchbook run --all 2`] = `
+"✔ Charizard 200
+✔ Blastoise 200
+✔ Venusaur 200
+✔ A Link to the Past 200
+✔ Ocarina of Time 200
+✔ Get all posts 200
+✔ Add a post 201
+✔ Get a missing post 404
+✔ Add a post 201
+✔ Add a post 201
+✔ Add a post 201
+✔ Add and get several posts 200
+✔ Get a post 200"
+`;
+
+exports[`fetchbook run --all 3`] = `""`;
+
+exports[`fetchbook run test/posts/add-post.fetch.ts 1`] = `0`;
+
+exports[`fetchbook run test/posts/add-post.fetch.ts 2`] = `"✔ Add a post 201"`;
+
+exports[`fetchbook run test/posts/add-post.fetch.ts 3`] = `""`;
+
+exports[`fetchbook export --all 1`] = `0`;
+
+exports[`fetchbook export --all 2`] = `
+"curl 'https://zelda.fanapis.com/api/games/5f6ce9d805615a85623ec2b8' -X GET
+curl 'https://zelda.fanapis.com/api/games/5f6ce9d805615a85623ec2ba' -X GET
+curl 'https://pokeapi.co/api/v2/pokemon/charizard' -X GET
+curl 'https://pokeapi.co/api/v2/pokemon/blastoise' -X GET
+curl 'https://pokeapi.co/api/v2/pokemon/venusaur' -X GET
+curl 'http://localhost:3000/posts' -X GET -H "some-header: value"
+curl 'http://localhost:3000/posts' -X POST -H "content-type: application/json" --data-binary '{"it":"works!"}'
+curl 'http://localhost:3000/posts/0' -X GET
+curl 'http://localhost:3000/posts' -X POST -H "content-type: application/json" --data-binary '{"it":"works!"}'
+curl 'http://localhost:3000/posts' -X POST -H "content-type: application/json" --data-binary '{"it":"works!"}'
+curl 'http://localhost:3000/posts' -X POST -H "content-type: application/json" --data-binary '{"it":"works!"}'
+curl 'http://localhost:3000/posts' -X GET
+curl 'http://localhost:3000/posts/1' -X GET -H "some-header: value""
+`;
+
+exports[`fetchbook export --all 3`] = `""`;
+
+exports[`fetchbook export test/posts/add-post.fetch.ts 1`] = `0`;
+
+exports[`fetchbook export test/posts/add-post.fetch.ts 2`] = `"curl 'http://localhost:3000/posts' -X POST -H "content-type: application/json" --data-binary '{"it":"works!"}'"`;
+
+exports[`fetchbook export test/posts/add-post.fetch.ts 3`] = `""`;

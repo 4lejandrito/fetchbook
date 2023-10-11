@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.2",
+    "@types/json-server": "^0.14.5",
     "@types/lodash.groupby": "^4.6.7",
     "@types/to-space-case": "^1.0.0",
     "bun-types": "latest",
@@ -32,16 +33,13 @@
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
     "semantic-release": "^22.0.5",
-    "start-server-and-test": "^2.0.1",
     "typescript": "^5.0.0"
   },
   "bin": {
     "fetchbook": "bin/fetchbook.js"
   },
   "scripts": {
-    "test": "start-test test:start 3000 test:run",
-    "test:run": "fetchbook run --all",
-    "test:start": "json-server --quiet --host :: test/db.js",
+    "test": "bun test",
     "semantic-release": "semantic-release",
     "prepare": "husky install"
   },
