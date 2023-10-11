@@ -16,6 +16,7 @@ afterAll(server.stop);
 
 $test`fetchbook`;
 $test`fetchbook --help`;
+$test`fetchbook --version`;
 $test`fetchbook run --all`;
 $test`fetchbook run test/posts/add-post.fetch.ts`;
 $test`fetchbook export --all`;

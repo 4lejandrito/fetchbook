@@ -10,6 +10,7 @@ exports[`fetchbook 3`] = `
 Manage your HTTP requests
 
 Options:
+  -V, --version             output the version number
   -h, --help                display help for command
 
 Commands:
@@ -27,6 +28,7 @@ exports[`fetchbook --help 2`] = `
 Manage your HTTP requests
 
 Options:
+  -V, --version             output the version number
   -h, --help                display help for command
 
 Commands:
@@ -37,6 +39,12 @@ Commands:
 `;
 
 exports[`fetchbook --help 3`] = `""`;
+
+exports[`fetchbook --version 1`] = `0`;
+
+exports[`fetchbook --version 2`] = `"2.1.1"`;
+
+exports[`fetchbook --version 3`] = `""`;
 
 exports[`fetchbook run --all 1`] = `0`;
 

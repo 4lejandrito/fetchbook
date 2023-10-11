@@ -5,8 +5,12 @@ import getCurl from "./lib/get-curl";
 import run from "./lib/run";
 import { createProject, initProject } from "./lib/project";
 import picocolors from "picocolors";
+import { version } from "./package.json";
 
-program.name("fetchbook").description("Manage your HTTP requests");
+program
+  .name("fetchbook")
+  .description("Manage your HTTP requests")
+  .version(version);
 
 program
   .command("init")
