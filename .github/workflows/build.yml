@@ -21,6 +21,8 @@ jobs:
         run: npm clean-install
       - name: Test
         run: npm test
+        env:
+          NO_COLOR: true
       - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
         run: npm audit signatures
       - name: Release
