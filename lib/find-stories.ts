@@ -35,20 +35,23 @@ export default async function findStories(
       ? path.join(process.cwd(), storyFilePath)
       : process.cwd();
     const storyToFile = new Map<FetchStory, string>();
-    const stories = await Promise.all(
-      (await glob(pattern, { cwd }))
-        .map((file) => path.join(cwd, file))
-        .filter(
-          (file) =>
-            (options?.demo && isFetchbookFile(file)) ||
-            !file.includes("node_modules"),
-        )
-        .map(async (file) => {
-          const story = await getStory(file);
-          storyToFile.set(story, file);
-          return story;
-        }),
-    );
+    const stories = (
+      await Promise.all(
+        (await glob(pattern, { cwd }))
+          .map((file) => path.join(cwd, file))
+          .filter(
+            (file) =>
+              (options?.demo && isFetchbookFile(file)) ||
+              !file.includes("node_modules"),
+          )
+          .sort()
+          .map(async (file) => {
+            const story = await getStory(file);
+            storyToFile.set(story, file);
+            return story;
+          }),
+      )
+    ).sort((a, b) => a.name.localeCompare(b.name));
     if (stories.length === 0) {
       throw `No story files (${pattern}) found`;
     }
