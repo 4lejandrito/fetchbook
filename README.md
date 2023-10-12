@@ -204,6 +204,16 @@ export default story;
 
 Ensure that your story files adhere to this structure, type definition, and the naming convention (`.fetch.ts`) to work seamlessly with Fetchbook. You can create multiple fetch story files to describe different HTTP requests and use Fetchbook to manage and execute them as needed.
 
+## Contributing
+
+Contributions are welcome! These are some of the current pending tasks:
+
+- [ ] Print response body by default to mimic a standard cURL request.
+- [ ] Run stories with a runner like [listr2](https://github.com/listr2/listr2).
+- [ ] Add command to create a story: `fetchbook create`.
+- [ ] Add command to import a story from other formats: `fetchbook import`.
+- [ ] Add a command to start a web ui: `fetchbook studio`.
+
 ## License
 
 Fetchbook is licensed under the MIT License. Feel free to use and modify it according to your needs.
