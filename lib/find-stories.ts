@@ -8,7 +8,7 @@ import titleize from "titleize";
 const getStory = (storyFilePath: string) =>
   import(storyFilePath).then((mod) => mod.default as FetchStory);
 
-const packageRoot = path.join(__dirname, "..");
+const packageRoot = path.join(import.meta.dir, "..");
 const isFetchbookFile = (file: string) => {
   const relative = path.relative(packageRoot, file);
   return relative && !relative.startsWith("..") && !path.isAbsolute(relative);

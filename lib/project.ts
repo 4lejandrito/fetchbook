@@ -32,7 +32,7 @@ export async function initProject(cwd = ".") {
     "package.json",
   )} --dev fetchbook@^${version}`;
   await copy(
-    path.join(__dirname, "..", "examples"),
+    path.join(import.meta.dir, "..", "examples"),
     path.join(cwd, "fetchbook", "samples"),
   );
 }
