@@ -1,6 +1,5 @@
-import { afterAll, beforeAll, expect, test } from "bun:test";
+import { expect, test } from "bun:test";
 import { $ } from "execa";
-import server from "./server";
 
 function $test(command: TemplateStringsArray) {
   test(command.toString(), async () => {
@@ -10,9 +9,6 @@ function $test(command: TemplateStringsArray) {
     expect(stderr).toMatchSnapshot();
   });
 }
-
-beforeAll(server.start);
-afterAll(server.stop);
 
 $test`fetchbook`;
 $test`fetchbook --help`;

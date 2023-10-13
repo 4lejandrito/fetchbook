@@ -2,6 +2,7 @@ import { FetchStory } from "fetchbook";
 import picocolors from "picocolors";
 import expect from "expect";
 import serialize from "./serialize";
+import testServer from "./test-server";
 
 async function readBody(source: Request | Response) {
   if (source.headers.get("content-type")?.includes("application/json")) {
@@ -20,7 +21,12 @@ export default async function run(
   let body: string | undefined;
   if (!options.dryRun) {
     try {
-      response = await fetch(request.clone());
+      if (process.env.FETCHBOOK_TEST) await testServer.start();
+      try {
+        response = await fetch(request.clone());
+      } finally {
+        if (process.env.FETCHBOOK_TEST) testServer.stop();
+      }
       body = await readBody(response);
       if (story.expect) {
         expect({

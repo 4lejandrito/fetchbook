@@ -7,7 +7,7 @@ export default {
   start: async () =>
     new Promise<void>((resolve) => {
       const app = jsonServer.create();
-      app.use(jsonServer.defaults());
+      app.use(jsonServer.defaults({ logger: false }));
       app.use(
         jsonServer.router({
           posts: [
