@@ -209,7 +209,6 @@ Ensure that your story files adhere to this structure, type definition, and the 
 Contributions are welcome! These are some of the current pending tasks:
 
 - [ ] Print response body by default to mimic a standard cURL request.
-- [ ] Run stories with a runner like [listr2](https://github.com/listr2/listr2).
 - [ ] Add command to create a story: `fetchbook create`.
 - [ ] Add command to import a story from other formats: `fetchbook import`.
 - [ ] Add a command to start a web ui: `fetchbook studio`.

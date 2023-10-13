@@ -1,13 +1,10 @@
-import { FetchStory } from "fetchbook";
 import picocolors from "picocolors";
 import autocomplete, { Separator } from "inquirer-autocomplete-standalone";
 import Fuse from "fuse.js";
-import groupBy from "lodash.groupby";
+import groupStories from "./group-stories";
+import { FileFetchStory } from "./find-stories";
 
-export default function selectStory(
-  stories: FetchStory[],
-  groupByKey: (story: FetchStory) => string,
-) {
+export default function selectStory(stories: FileFetchStory[]) {
   const fuse = new Fuse(stories, {
     keys: [
       {
@@ -18,22 +15,18 @@ export default function selectStory(
   });
   return autocomplete({
     message: "Select a fetch story",
-    source: async (input) => {
-      return Object.entries(
-        groupBy(
-          input ? fuse.search(input).map((result) => result.item) : stories,
-          groupByKey,
-        ),
+    source: async (input) =>
+      groupStories(
+        input ? fuse.search(input).map((result) => result.item) : stories,
       )
-        .map(([group, stories]) => [
-          new Separator(picocolors.gray(group)),
+        .map(({ name, stories }) => [
+          new Separator(name),
           ...stories.map((story) => ({
             name: story.name,
             value: story,
             description: `${picocolors.green(story.init.method)} ${story.url}`,
           })),
         ])
-        .flat();
-    },
+        .flat(),
   });
 }

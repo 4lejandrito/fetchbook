@@ -29,10 +29,6 @@ export default {
         id: 4,
         it: "works!",
       },
-      {
-        id: 5,
-        it: "works!",
-      },
     ],
   },
   before: [addPostFetch, addPostFetch, addPostFetch],

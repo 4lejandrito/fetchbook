@@ -2,7 +2,7 @@ import { Option, program } from "commander";
 import visit from "./lib/visit";
 import findStories from "./lib/find-stories";
 import getCurl from "./lib/get-curl";
-import run from "./lib/run";
+import runStories from "./lib/run-stories";
 import { createProject, initProject } from "./lib/project";
 import picocolors from "picocolors";
 import { version } from "./package.json";
@@ -33,9 +33,7 @@ program
   .option("-d, --dry-run", "dry run")
   .option("--demo", "use demo stories")
   .action(async (storyFilePath, options) =>
-    visit(await findStories(storyFilePath, options), (story) =>
-      run(story, options),
-    ),
+    runStories(await findStories(storyFilePath, options), options),
   );
 
 program

@@ -49,21 +49,29 @@ exports[`fetchbook --version 3`] = `""`;
 exports[`fetchbook run --all 1`] = `0`;
 
 exports[`fetchbook run --all 2`] = `
-"✔ A Link to the Past 200
-✔ Add a post 201
-✔ Add a post 201
-✔ Add a post 201
-✔ Add a post 201
-✔ Add and get several posts 200
-✔ Blastoise 200
-✔ Charizard 200
-✔ Get a missing post 404
-✔ Get a post 200
-✘ Get all posts 200"
+"❯ Examples / Pokeapi
+❯ GET Blastoise ...
+✔ GET Blastoise 200
+❯ GET Charizard ...
+✔ GET Charizard 200
+❯ GET Venusaur ...
+✔ GET Venusaur 200
+✔ Examples / Pokeapi
+❯ Examples / Zelda Fan Api
+❯ GET A Link to the Past ...
+✔ GET A Link to the Past 200
+❯ GET Ocarina of Time ...
+✔ GET Ocarina of Time 200
+✔ Examples / Zelda Fan Api
+❯ Test / Fail
+❯ GET Get all posts ...
+[?25h"
 `;
 
 exports[`fetchbook run --all 3`] = `
-"error: expect(received).toMatchObject(expected)
+"✖ GET Get all posts ... [FAILED: GET Get all posts ...]
+✖ Test / Fail [FAILED: Test / Fail]
+error: expect(received).toMatchObject(expected)
 
 - Expected  - 1
 + Received  + 1
@@ -80,24 +88,43 @@ exports[`fetchbook run --all 3`] = `
 exports[`fetchbook run test/pass --all 1`] = `0`;
 
 exports[`fetchbook run test/pass --all 2`] = `
-"✔ Add a post 201
-✔ Add a post 201
-✔ Add a post 201
-✔ Add a post 201
-✔ Add and get several posts 200
-✔ Get a missing post 404
-✔ Get a post 200
-✔ Get all posts 200"
+"❯ Test / Pass
+❯ POST Add a post ...
+✔ POST Add a post 201
+❯ GET Add and get several posts ...
+❯ Before
+❯ POST Add a post ...
+✔ POST Add a post 201
+❯ POST Add a post ...
+✔ POST Add a post 201
+❯ POST Add a post ...
+✔ POST Add a post 201
+✔ Before
+✔ GET Add and get several posts 200
+❯ GET Get a missing post ...
+✔ GET Get a missing post 404
+❯ GET Get a post ...
+✔ GET Get a post 200
+❯ GET Get all posts ...
+✔ GET Get all posts 200
+✔ Test / Pass
+[?25h"
 `;
 
 exports[`fetchbook run test/pass --all 3`] = `""`;
 
 exports[`fetchbook run test/fail --all 1`] = `0`;
 
-exports[`fetchbook run test/fail --all 2`] = `"✘ Get all posts 200"`;
+exports[`fetchbook run test/fail --all 2`] = `
+"❯ Test / Fail
+❯ GET Get all posts ...
+[?25h"
+`;
 
 exports[`fetchbook run test/fail --all 3`] = `
-"error: expect(received).toMatchObject(expected)
+"✖ GET Get all posts ... [FAILED: GET Get all posts ...]
+✖ Test / Fail [FAILED: Test / Fail]
+error: expect(received).toMatchObject(expected)
 
 - Expected  - 1
 + Received  + 1
@@ -114,18 +141,15 @@ exports[`fetchbook run test/fail --all 3`] = `
 exports[`fetchbook run test --all 1`] = `0`;
 
 exports[`fetchbook run test --all 2`] = `
-"✔ Add a post 201
-✔ Add a post 201
-✔ Add a post 201
-✔ Add a post 201
-✔ Add and get several posts 200
-✔ Get a missing post 404
-✔ Get a post 200
-✘ Get all posts 200"
+"❯ Test / Fail
+❯ GET Get all posts ...
+[?25h"
 `;
 
 exports[`fetchbook run test --all 3`] = `
-"error: expect(received).toMatchObject(expected)
+"✖ GET Get all posts ... [FAILED: GET Get all posts ...]
+✖ Test / Fail [FAILED: Test / Fail]
+error: expect(received).toMatchObject(expected)
 
 - Expected  - 1
 + Received  + 1
@@ -142,27 +166,49 @@ exports[`fetchbook run test --all 3`] = `
 exports[`fetchbook run examples --all 1`] = `0`;
 
 exports[`fetchbook run examples --all 2`] = `
-"✔ A Link to the Past 200
-✔ Blastoise 200
-✔ Charizard 200
-✔ Ocarina of Time 200
-✔ Venusaur 200"
+"❯ Examples / Pokeapi
+❯ GET Blastoise ...
+✔ GET Blastoise 200
+❯ GET Charizard ...
+✔ GET Charizard 200
+❯ GET Venusaur ...
+✔ GET Venusaur 200
+✔ Examples / Pokeapi
+❯ Examples / Zelda Fan Api
+❯ GET A Link to the Past ...
+✔ GET A Link to the Past 200
+❯ GET Ocarina of Time ...
+✔ GET Ocarina of Time 200
+✔ Examples / Zelda Fan Api
+[?25h"
 `;
 
 exports[`fetchbook run examples --all 3`] = `""`;
 
 exports[`fetchbook run test/pass/add-post.fetch.ts 1`] = `0`;
 
-exports[`fetchbook run test/pass/add-post.fetch.ts 2`] = `"✔ Add a post 201"`;
+exports[`fetchbook run test/pass/add-post.fetch.ts 2`] = `
+"❯ Test / Pass
+❯ POST Add a post ...
+✔ POST Add a post 201
+✔ Test / Pass
+[?25h"
+`;
 
 exports[`fetchbook run test/pass/add-post.fetch.ts 3`] = `""`;
 
 exports[`fetchbook run test/fail/get-posts.fetch.ts 1`] = `0`;
 
-exports[`fetchbook run test/fail/get-posts.fetch.ts 2`] = `"✘ Get all posts 200"`;
+exports[`fetchbook run test/fail/get-posts.fetch.ts 2`] = `
+"❯ Test / Fail
+❯ GET Get all posts ...
+[?25h"
+`;
 
 exports[`fetchbook run test/fail/get-posts.fetch.ts 3`] = `
-"error: expect(received).toMatchObject(expected)
+"✖ GET Get all posts ... [FAILED: GET Get all posts ...]
+✖ Test / Fail [FAILED: Test / Fail]
+error: expect(received).toMatchObject(expected)
 
 - Expected  - 1
 + Received  + 1
