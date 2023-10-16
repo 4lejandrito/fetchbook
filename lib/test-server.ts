@@ -11,6 +11,7 @@ let testServer: TestServer | undefined = undefined;
 
 if (process.env.FETCHBOOK_TEST) {
   const app = jsonServer.create();
+  app.disable("etag");
   app.use(jsonServer.defaults({ logger: false }));
   const router = jsonServer.router<{ posts: { id: number; it?: string }[] }>({
     posts: [],

@@ -113,6 +113,257 @@ exports[`fetchbook run test/pass --all 2`] = `
 
 exports[`fetchbook run test/pass --all 3`] = `""`;
 
+exports[`fetchbook run test/pass --all -v 1`] = `0`;
+
+exports[`fetchbook run test/pass --all -v 2`] = `
+"{
+  "request": {
+    "url": "http://localhost:3000/posts",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "it": "works!"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "vary": "Origin, X-HTTP-Method-Override, Accept-Encoding",
+      "access-control-allow-credentials": "true",
+      "cache-control": "no-cache",
+      "pragma": "no-cache",
+      "expires": "-1",
+      "access-control-expose-headers": "Location",
+      "location": "http://localhost:3000/posts/2",
+      "x-content-type-options": "nosniff",
+      "content-type": "application/json; charset=utf-8",
+      "content-length": "31",
+      "x-powered-by": "Express"
+    },
+    "body": {
+      "it": "works!",
+      "id": 2
+    }
+  }
+}
+{
+  "request": {
+    "url": "http://localhost:3000/posts",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "it": "works!"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "vary": "Origin, X-HTTP-Method-Override, Accept-Encoding",
+      "access-control-allow-credentials": "true",
+      "cache-control": "no-cache",
+      "pragma": "no-cache",
+      "expires": "-1",
+      "access-control-expose-headers": "Location",
+      "location": "http://localhost:3000/posts/2",
+      "x-content-type-options": "nosniff",
+      "content-type": "application/json; charset=utf-8",
+      "content-length": "31",
+      "x-powered-by": "Express"
+    },
+    "body": {
+      "it": "works!",
+      "id": 2
+    }
+  }
+}
+{
+  "request": {
+    "url": "http://localhost:3000/posts",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "it": "works!"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "vary": "Origin, X-HTTP-Method-Override, Accept-Encoding",
+      "access-control-allow-credentials": "true",
+      "cache-control": "no-cache",
+      "pragma": "no-cache",
+      "expires": "-1",
+      "access-control-expose-headers": "Location",
+      "location": "http://localhost:3000/posts/3",
+      "x-content-type-options": "nosniff",
+      "content-type": "application/json; charset=utf-8",
+      "content-length": "31",
+      "x-powered-by": "Express"
+    },
+    "body": {
+      "it": "works!",
+      "id": 3
+    }
+  }
+}
+{
+  "request": {
+    "url": "http://localhost:3000/posts",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "it": "works!"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "vary": "Origin, X-HTTP-Method-Override, Accept-Encoding",
+      "access-control-allow-credentials": "true",
+      "cache-control": "no-cache",
+      "pragma": "no-cache",
+      "expires": "-1",
+      "access-control-expose-headers": "Location",
+      "location": "http://localhost:3000/posts/4",
+      "x-content-type-options": "nosniff",
+      "content-type": "application/json; charset=utf-8",
+      "content-length": "31",
+      "x-powered-by": "Express"
+    },
+    "body": {
+      "it": "works!",
+      "id": 4
+    }
+  }
+}
+{
+  "request": {
+    "url": "http://localhost:3000/posts",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "vary": "Origin, Accept-Encoding",
+      "access-control-allow-credentials": "true",
+      "cache-control": "no-cache",
+      "pragma": "no-cache",
+      "expires": "-1",
+      "x-content-type-options": "nosniff",
+      "content-type": "application/json; charset=utf-8",
+      "content-length": "166",
+      "x-powered-by": "Express"
+    },
+    "body": [
+      {
+        "id": 1,
+        "it": "works!"
+      },
+      {
+        "it": "works!",
+        "id": 2
+      },
+      {
+        "it": "works!",
+        "id": 3
+      },
+      {
+        "it": "works!",
+        "id": 4
+      }
+    ]
+  }
+}
+{
+  "request": {
+    "url": "http://localhost:3000/posts/0",
+    "method": "GET"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "vary": "Origin, Accept-Encoding",
+      "access-control-allow-credentials": "true",
+      "cache-control": "no-cache",
+      "pragma": "no-cache",
+      "expires": "-1",
+      "x-content-type-options": "nosniff",
+      "content-type": "application/json; charset=utf-8",
+      "content-length": "2",
+      "x-powered-by": "Express"
+    },
+    "body": {}
+  }
+}
+{
+  "request": {
+    "url": "http://localhost:3000/posts/1",
+    "method": "GET",
+    "headers": {
+      "Some-Header": "value"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "vary": "Origin, Accept-Encoding",
+      "access-control-allow-credentials": "true",
+      "cache-control": "no-cache",
+      "pragma": "no-cache",
+      "expires": "-1",
+      "x-content-type-options": "nosniff",
+      "content-type": "application/json; charset=utf-8",
+      "content-length": "31",
+      "x-powered-by": "Express"
+    },
+    "body": {
+      "id": 1,
+      "it": "works!"
+    }
+  }
+}
+{
+  "request": {
+    "url": "http://localhost:3000/posts",
+    "method": "GET",
+    "headers": {
+      "Some-Header": "value"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "vary": "Origin, Accept-Encoding",
+      "access-control-allow-credentials": "true",
+      "cache-control": "no-cache",
+      "pragma": "no-cache",
+      "expires": "-1",
+      "x-content-type-options": "nosniff",
+      "content-type": "application/json; charset=utf-8",
+      "content-length": "43",
+      "x-powered-by": "Express"
+    },
+    "body": [
+      {
+        "id": 1,
+        "it": "works!"
+      }
+    ]
+  }
+}
+[?25h"
+`;
+
+exports[`fetchbook run test/pass --all -v 3`] = `""`;
+
 exports[`fetchbook run test/fail --all 1`] = `0`;
 
 exports[`fetchbook run test/fail --all 2`] = `

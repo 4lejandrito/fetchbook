@@ -5,7 +5,7 @@ function $test(command: TemplateStringsArray) {
   test(command.toString(), async () => {
     const { exitCode, stdout, stderr } = await $(command);
     expect(exitCode).toMatchSnapshot();
-    expect(stdout).toMatchSnapshot();
+    expect(stdout.replaceAll(/\s*"date": ".+",?/g, "")).toMatchSnapshot();
     expect(stderr).toMatchSnapshot();
   });
 }
@@ -15,6 +15,7 @@ $test`fetchbook --help`;
 $test`fetchbook --version`;
 $test`fetchbook run --all`;
 $test`fetchbook run test/pass --all`;
+$test`fetchbook run test/pass --all -v`;
 $test`fetchbook run test/fail --all`;
 $test`fetchbook run test --all`;
 $test`fetchbook run examples --all`;
