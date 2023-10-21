@@ -1,6 +1,6 @@
 import { FetchStory } from "fetchbook";
 
-const story: FetchStory = {
+export default {
   name: "A Link to the Past",
   url: "https://zelda.fanapis.com/api/games/5f6ce9d805615a85623ec2b8",
   init: {
@@ -18,6 +18,4 @@ const story: FetchStory = {
       },
     },
   },
-};
-
-export default story;
+} satisfies FetchStory;

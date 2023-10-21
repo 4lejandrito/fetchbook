@@ -179,7 +179,7 @@ Here's an example of a Fetchbook fetch story file adhering to the TypeScript def
 // examples/venusaur.fetch.ts
 import { FetchStory } from "fetchbook";
 
-const story: FetchStory = {
+export default {
   name: "Get info about Venusaur",
   url: "https://pokeapi.co/api/v2/pokemon/venusaur",
   init: {
@@ -197,9 +197,7 @@ const story: FetchStory = {
       weight: 1000,
     },
   },
-};
-
-export default story;
+} satisfies FetchStory;
 ```
 
 Ensure that your story files adhere to this structure, type definition, and the naming convention (`.fetch.ts`) to work seamlessly with Fetchbook. You can create multiple fetch story files to describe different HTTP requests and use Fetchbook to manage and execute them as needed.

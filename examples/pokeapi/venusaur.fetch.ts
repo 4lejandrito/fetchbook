@@ -1,6 +1,6 @@
 import { FetchStory } from "fetchbook";
 
-const story: FetchStory = {
+export default {
   name: "Venusaur",
   url: "https://pokeapi.co/api/v2/pokemon/venusaur",
   init: {
@@ -18,6 +18,4 @@ const story: FetchStory = {
       weight: 1000,
     },
   },
-};
-
-export default story;
+} satisfies FetchStory;
