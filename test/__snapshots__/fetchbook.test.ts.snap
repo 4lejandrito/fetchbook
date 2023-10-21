@@ -448,6 +448,58 @@ exports[`fetchbook run test/pass/add-post.fetch.ts 2`] = `
 
 exports[`fetchbook run test/pass/add-post.fetch.ts 3`] = `""`;
 
+exports[`fetchbook run , 1`] = `0`;
+
+exports[`fetchbook run , 2`] = `
+"❯ Test / Pass
+❯ POST Add a post ...
+✔ POST Add a post 201
+✔ Test / Pass
+[?25h"
+`;
+
+exports[`fetchbook run , 3`] = `""`;
+
+exports[`fetchbook run , -v 1`] = `0`;
+
+exports[`fetchbook run , -v 2`] = `
+"{
+  "request": {
+    "url": "http://localhost:3000/posts",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "it": "works!"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "vary": "Origin, X-HTTP-Method-Override, Accept-Encoding",
+      "access-control-allow-credentials": "true",
+      "cache-control": "no-cache",
+      "pragma": "no-cache",
+      "expires": "-1",
+      "access-control-expose-headers": "Location",
+      "location": "http://localhost:3000/posts/2",
+      "x-content-type-options": "nosniff",
+      "content-type": "application/json; charset=utf-8",
+      "content-length": "31",
+      "x-powered-by": "Express"
+    },
+    "body": {
+      "it": "works!",
+      "id": 2
+    }
+  }
+}
+[?25h"
+`;
+
+exports[`fetchbook run , -v 3`] = `""`;
+
 exports[`fetchbook run test/fail/get-posts.fetch.ts 1`] = `0`;
 
 exports[`fetchbook run test/fail/get-posts.fetch.ts 2`] = `
@@ -499,3 +551,55 @@ exports[`fetchbook export test/pass/add-post.fetch.ts 1`] = `0`;
 exports[`fetchbook export test/pass/add-post.fetch.ts 2`] = `"curl 'http://localhost:3000/posts' -X POST -H "content-type: application/json" --data-binary '{"it":"works!"}'"`;
 
 exports[`fetchbook export test/pass/add-post.fetch.ts 3`] = `""`;
+
+exports[`fetchbook run /Users/alex/Projects/fetchbook/test/pass/add-post.fetch.ts 1`] = `0`;
+
+exports[`fetchbook run /Users/alex/Projects/fetchbook/test/pass/add-post.fetch.ts 2`] = `
+"❯ Test / Pass
+❯ POST Add a post ...
+✔ POST Add a post 201
+✔ Test / Pass
+[?25h"
+`;
+
+exports[`fetchbook run /Users/alex/Projects/fetchbook/test/pass/add-post.fetch.ts 3`] = `""`;
+
+exports[`fetchbook run /Users/alex/Projects/fetchbook/test/pass/add-post.fetch.ts -v 1`] = `0`;
+
+exports[`fetchbook run /Users/alex/Projects/fetchbook/test/pass/add-post.fetch.ts -v 2`] = `
+"{
+  "request": {
+    "url": "http://localhost:3000/posts",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "it": "works!"
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "vary": "Origin, X-HTTP-Method-Override, Accept-Encoding",
+      "access-control-allow-credentials": "true",
+      "cache-control": "no-cache",
+      "pragma": "no-cache",
+      "expires": "-1",
+      "access-control-expose-headers": "Location",
+      "location": "http://localhost:3000/posts/2",
+      "x-content-type-options": "nosniff",
+      "content-type": "application/json; charset=utf-8",
+      "content-length": "31",
+      "x-powered-by": "Express"
+    },
+    "body": {
+      "it": "works!",
+      "id": 2
+    }
+  }
+}
+[?25h"
+`;
+
+exports[`fetchbook run /Users/alex/Projects/fetchbook/test/pass/add-post.fetch.ts -v 3`] = `""`;
